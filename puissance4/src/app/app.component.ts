@@ -6,48 +6,54 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  private readonly rows = 6;
-  private readonly columns = 7;
+  private readonly ROWS = 6;
+  private readonly COLUMNS = 7;
+  private readonly RED_PLAYER = 'r';
+  private readonly YELLOW_PLAYER = 'y';
+  private readonly REGEX_WIN_CONDITION = new RegExp(`${this.RED_PLAYER}{4}|${this.YELLOW_PLAYER}{4}`);
 
-  activePlayer = 'r';
-
+  activePlayer = this.RED_PLAYER;
   board: any[][] = [];
-
   gameStopped = false;
+  tokenCount = 0;
+  winMessage = '';
 
   ngOnInit() {
     this.initBoard();
-
-    console.log(this.board);
-  }
-
-  private initBoard() {
-    for (let i = 0; i < this.columns; i++) {
-      let cells = [];
-      for (let j = 0; j < this.rows; j++) {
-        cells.push(null);
-      }
-      this.board.push(cells);
-    }
   }
 
   addToken(colIndex: number) {
     if (!this.gameStopped && !this.isColumnFull(colIndex)) { // Add token only if the column is not full
-      for (let rowIndex = this.board.length - 1; rowIndex >= 0; rowIndex--) {
-        if (this.board[colIndex][rowIndex] === null) {
-          this.board[colIndex][rowIndex] = this.activePlayer;
+      const rowIndex = this.board[colIndex].lastIndexOf(null);
+      this.board[colIndex][rowIndex] = this.activePlayer;
+      this.tokenCount++;
 
-          if (!this.checkWin(this.activePlayer, colIndex, rowIndex)) {
-            this.switchActivePlayer();
-          } else {
-            this.displayWinner();
-            this.stopTheGame();
-          }
-
-          break;
-        }
+      if (this.checkWin(this.activePlayer, colIndex, rowIndex)) {
+        this.stopTheGame(this.activePlayer);
+      } else {
+        this.switchActivePlayer();
       }
     }
+
+    this.checkTokenCount();
+  }
+
+  reset() {
+    this.initBoard();
+    this.activePlayer = this.RED_PLAYER;
+    this.gameStopped = false;
+    this.tokenCount = 0;
+  }
+
+  checkTokenCount() {
+    if (this.tokenCount === this.ROWS * this.COLUMNS) {
+      this.stopTheGame(null);
+    }
+  }
+
+  private initBoard() {
+    this.board = Array(this.COLUMNS).fill([])
+      .map(x => Array(this.ROWS).fill(null));
   }
 
   private isColumnFull(colIndex: number) {
@@ -55,7 +61,7 @@ export class AppComponent implements OnInit {
   }
 
   private switchActivePlayer() {
-    this.activePlayer = this.activePlayer === 'r' ? 'y' : 'r';
+    this.activePlayer = this.activePlayer === this.RED_PLAYER ? this.YELLOW_PLAYER : this.RED_PLAYER;
   }
 
   private checkWin(activePlayer: string, colIndex: number, rowIndex: number): boolean {
@@ -80,7 +86,7 @@ export class AppComponent implements OnInit {
     }
 
     const arrAscendingDiagonal: string[] = [];
-    while (tmpColIndex < this.columns && tmpRowIndex < this.rows) {
+    while (tmpColIndex < this.COLUMNS && tmpRowIndex < this.ROWS) {
       arrAscendingDiagonal.push(this.board[tmpColIndex][tmpRowIndex]);
       tmpColIndex++;
       tmpRowIndex++;
@@ -92,15 +98,13 @@ export class AppComponent implements OnInit {
     let tmpColIndex = colIndex;
     let tmpRowIndex = rowIndex;
 
-    while (tmpColIndex < this.columns - 1 && tmpRowIndex > 0) {
+    while (tmpColIndex < this.COLUMNS - 1 && tmpRowIndex > 0) {
       tmpColIndex++;
       tmpRowIndex--;
     }
 
     const arrDescendingDiagonal: string[] = [];
-    while (tmpColIndex > 0 && tmpRowIndex < this.rows) {
-      console.log(tmpColIndex, tmpRowIndex);
-
+    while (tmpColIndex > 0 && tmpRowIndex < this.ROWS) {
       arrDescendingDiagonal.push(this.board[tmpColIndex][tmpRowIndex]);
       tmpColIndex--;
       tmpRowIndex++;
@@ -110,13 +114,27 @@ export class AppComponent implements OnInit {
   }
 
   private hasWinningConditions(arr: string[]): boolean {
-    return arr.join('').match(/r{4}|y{4}/) !== null;
+    return arr.join('').match(this.REGEX_WIN_CONDITION) !== null;
   }
 
-  private displayWinner() {
-    console.log(`Player ${this.activePlayer} wins !!!`);
-  }
-  private stopTheGame() {
+  private stopTheGame(winner: string) {
     this.gameStopped = true;
+
+    switch (winner) {
+      case this.RED_PLAYER:
+        this.winMessage = 'Red player wins !';
+        break;
+
+      case this.YELLOW_PLAYER:
+        this.winMessage = 'Yellow player wins !';
+        break;
+
+      case null:
+        this.winMessage = 'No one wins.';
+        break;
+
+      default:
+        break;
+    }
   }
 }

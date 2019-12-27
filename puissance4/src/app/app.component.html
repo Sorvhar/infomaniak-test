@@ -8,16 +8,25 @@
 
 <main class="main">
   <div class="main__active-player">{{activePlayer}}</div>
+  <div class="main__tokens-container">
+    <ng-container *ngIf="!gameStopped">
+      <div class="main__token"
+        [ngClass]="{ 'main__token-r': activePlayer === 'r', 'main__token-y': activePlayer === 'y'}"
+        *ngFor="let col of board; let colIndex = index" (click)="addToken(colIndex)"></div>
+    </ng-container>
+    <div *ngIf="gameStopped">
+      {{winMessage}}
+    </div>
+  </div>
   <div class="main__board">
-    <div *ngFor="let col of board; let colIndex = index">
-      <div class="main__cell"
-      [ngClass]="{ 'main__cell--active-r': row === 'r', 'main__cell--active-y': row === 'y'}"
-        *ngFor="let row of col; let rowIndex = index"
-        (click)="addToken(colIndex)">
-          {{colIndex}} {{rowIndex}}
+    <div class="main__column" *ngFor="let col of board; let colIndex = index">
+      <div class="main__cell" [ngClass]="{ 'main__cell--active-r': row === 'r', 'main__cell--active-y': row === 'y'}"
+        *ngFor="let row of col; let rowIndex = index" (click)="addToken(colIndex)">
+        {{colIndex}} {{rowIndex}}
       </div>
     </div>
   </div>
+  <button (click)="reset()">Reset</button>
 </main>
 
 <aside class="sidebar">
