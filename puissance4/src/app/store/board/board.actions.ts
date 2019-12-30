@@ -4,6 +4,6 @@ export class InitializeBoard {
 }
 
 export class AddToken {
-    static readonly type = '[Board] Add Token';
+    static readonly type = '[Board] AddToken';
     constructor(public colIndex: number) { }
 }

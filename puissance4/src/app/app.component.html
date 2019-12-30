@@ -1,39 +1,19 @@
-<header class="header">
-  Logo
-</header>
+<div class="">
+  <mat-toolbar color="primary">
+    <span>Puissance 4</span>
+  </mat-toolbar>
 
-<nav class="nav">
-  Menu
-</nav>
+  <main class="main">
+    <div class="main__active-player">
 
-<main class="main">
-  <div class="main__active-player">
-    Player's turn :
-    <!-- <span class="label-red-player" *ngIf="activePlayer === RED_PLAYER">Red</span>
-    <span class="label-yellow-player" *ngIf="activePlayer === YELLOW_PLAYER">Yellow</span> -->
-  </div>
-
-  <div *ngIf="gameStopped">
-    {{winMessage}}
-  </div>
-
-  <app-board></app-board>
-
-  <!-- <div class="main__board">
-    <div class="main__column" *ngFor="let col of board; let colIndex = index" (click)="addToken(colIndex)">
-      <div class="main__cell" [ngClass]="{ 'main__cell--active-r': row === 'r', 'main__cell--active-y': row === 'y'}"
-        *ngFor="let row of col; let rowIndex = index">
-        {{colIndex}} {{rowIndex}}
-      </div>
     </div>
-  </div> -->
-  <button mat-button (click)="reset()">Reset</button>
-</main>
 
-<aside class="sidebar">
-  Sidebar
-</aside>
+    <app-board></app-board>
 
-<footer class="footer box">
-  Footer
-</footer>
+  </main>
+
+  <footer class="footer">
+    Footer
+  </footer>
+
+</div>

@@ -3,33 +3,36 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: 50px auto 50px;
+    grid-template-areas: 
+        "header header header"
+        "left main right"
+        "footer footer footer";
+}
+
+.header {
+    grid-area: header;
+}
+
+.main {
+    grid-area: main;
+}
+
+.footer {
+    grid-area: footer;
+}
+
 .main__board {
     display: flex;
+    justify-content: center;
     background-color: #204f84;
-    justify-content: center;
 }
 
-.main__tokens-container {
-    display: flex;
-    justify-content: center;
-}
-
-.main__token {
-    border-radius: 50%;
-    width: 10vw;
-    height: 10vw;
-    max-width: 60px;
-    max-height: 60px;
-    margin: 5px;
-    background-color: lightgray;
-}
-
-.main__token-r:hover {
-    background-color: red;
-}
-
-.main__token-y:hover {
-    background-color: yellow;
+.main__column {    
+    cursor: pointer;
 }
 
 .main__column:hover {
@@ -53,13 +56,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     &--active-y {
         background-color: yellow;
     }
-}
-
-.label-red-player {
-    color: red;
-    font-weight: 500;
-}
-.label-yellow-player {
-    color: yellow;
-    font-weight: 500;
 }

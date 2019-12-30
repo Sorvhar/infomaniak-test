@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { COLUMNS, ROWS } from 'src/app/shared/constants';
 import { Observable } from 'rxjs';
-import { BoardState } from 'src/app/states/board/board.state';
-import { InitializeBoard } from 'src/app/states/board/board.actions';
+import { BoardState } from 'src/app/store/board/board.state';
+import { BoardService } from './board.service';
+import { GameService } from '../shared/game.service';
 
 @Component({
   selector: 'app-board',
@@ -11,15 +11,23 @@ import { InitializeBoard } from 'src/app/states/board/board.actions';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  @Select(BoardState.getBoard) board$: Observable<string[][]>;
+  @Select(BoardState.getColumns) columns$: Observable<string[][]>;
 
-  constructor(private store: Store) { }
+  constructor(
+    private store: Store,
+    private boardSvc: BoardService,
+    private gameSvc: GameService) { }
 
   ngOnInit() {
-    this.store.dispatch(new InitializeBoard(COLUMNS, ROWS));
+    this.boardSvc.initializeBoard();
   }
 
   addToken(colIndex: number) {
+    this.boardSvc.addToken(colIndex);
+  }
 
+  reset() {
+    this.gameSvc.resetTheGame();
+    this.boardSvc.initializeBoard();
   }
 }

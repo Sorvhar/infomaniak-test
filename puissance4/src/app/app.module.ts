@@ -10,8 +10,11 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from 'src/environments/environment';
-import { GameState } from './states/game/game.state';
-import { BoardState } from './states/board/board.state';
+import { GameState } from './store/game/game.state';
+import { BoardState } from './store/board/board.state';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { BoardState } from './states/board/board.state';
     MatButtonModule,
     NgxsModule.forRoot([GameState, BoardState], { developmentMode: !environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
+    LayoutModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
