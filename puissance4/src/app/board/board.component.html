@@ -1,0 +1,11 @@
+<div class="main__board">
+    <ng-container *ngIf="board$">
+        <div class="main__column" *ngFor="let col of board$ | async; let colIndex = index" (click)="addToken(colIndex)">
+            <div class="main__cell"
+                [ngClass]="{ 'main__cell--active-r': row === 'r', 'main__cell--active-y': row === 'y'}"
+                *ngFor="let row of col; let rowIndex = index">
+                {{colIndex}} {{rowIndex}}
+            </div>
+        </div>
+    </ng-container>
+</div>

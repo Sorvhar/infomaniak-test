@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RED_PLAYER, ROWS, COLUMNS, YELLOW_PLAYER, REGEX_WIN_CONDITION } from './shared/constants';
 
 @Component({
   selector: 'app-root',
@@ -6,14 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  readonly RED_PLAYER = 'r';
-  readonly YELLOW_PLAYER = 'y';
-
-  private readonly ROWS = 6;
-  private readonly COLUMNS = 7;
-  private readonly REGEX_WIN_CONDITION = new RegExp(`${this.RED_PLAYER}{4}|${this.YELLOW_PLAYER}{4}`);
-
-  activePlayer = this.RED_PLAYER;
+  activePlayer = RED_PLAYER;
   board: any[][] = [];
   gameStopped = false;
   tokenCount = 0;
@@ -41,20 +35,20 @@ export class AppComponent implements OnInit {
 
   reset() {
     this.initBoard();
-    this.activePlayer = this.RED_PLAYER;
+    this.activePlayer = RED_PLAYER;
     this.gameStopped = false;
     this.tokenCount = 0;
   }
 
   checkTokenCount() {
-    if (this.tokenCount === this.ROWS * this.COLUMNS) {
+    if (this.tokenCount === ROWS * COLUMNS) {
       this.stopTheGame(null);
     }
   }
 
   private initBoard() {
-    this.board = Array(this.COLUMNS).fill([])
-      .map(x => Array(this.ROWS).fill(null));
+    this.board = Array(COLUMNS).fill([])
+      .map(x => Array(ROWS).fill(null));
   }
 
   private isColumnFull(colIndex: number) {
@@ -62,7 +56,7 @@ export class AppComponent implements OnInit {
   }
 
   private switchActivePlayer() {
-    this.activePlayer = this.activePlayer === this.RED_PLAYER ? this.YELLOW_PLAYER : this.RED_PLAYER;
+    this.activePlayer = this.activePlayer === RED_PLAYER ? YELLOW_PLAYER : RED_PLAYER;
   }
 
   private checkWin(activePlayer: string, colIndex: number, rowIndex: number): boolean {
@@ -87,7 +81,7 @@ export class AppComponent implements OnInit {
     }
 
     const arrAscendingDiagonal: string[] = [];
-    while (tmpColIndex < this.COLUMNS && tmpRowIndex < this.ROWS) {
+    while (tmpColIndex < COLUMNS && tmpRowIndex < ROWS) {
       arrAscendingDiagonal.push(this.board[tmpColIndex][tmpRowIndex]);
       tmpColIndex++;
       tmpRowIndex++;
@@ -99,13 +93,13 @@ export class AppComponent implements OnInit {
     let tmpColIndex = colIndex;
     let tmpRowIndex = rowIndex;
 
-    while (tmpColIndex < this.COLUMNS - 1 && tmpRowIndex > 0) {
+    while (tmpColIndex < COLUMNS - 1 && tmpRowIndex > 0) {
       tmpColIndex++;
       tmpRowIndex--;
     }
 
     const arrDescendingDiagonal: string[] = [];
-    while (tmpColIndex > 0 && tmpRowIndex < this.ROWS) {
+    while (tmpColIndex > 0 && tmpRowIndex < ROWS) {
       arrDescendingDiagonal.push(this.board[tmpColIndex][tmpRowIndex]);
       tmpColIndex--;
       tmpRowIndex++;
@@ -115,18 +109,18 @@ export class AppComponent implements OnInit {
   }
 
   private hasWinningConditions(arr: string[]): boolean {
-    return arr.join('').match(this.REGEX_WIN_CONDITION) !== null;
+    return arr.join('').match(REGEX_WIN_CONDITION) !== null;
   }
 
   private stopTheGame(winner: string) {
     this.gameStopped = true;
 
     switch (winner) {
-      case this.RED_PLAYER:
+      case RED_PLAYER:
         this.winMessage = 'Red player wins !';
         break;
 
-      case this.YELLOW_PLAYER:
+      case YELLOW_PLAYER:
         this.winMessage = 'Yellow player wins !';
         break;
 
