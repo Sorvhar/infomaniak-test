@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  readonly RED_PLAYER = 'r';
+  readonly YELLOW_PLAYER = 'y';
+
   private readonly ROWS = 6;
   private readonly COLUMNS = 7;
-  private readonly RED_PLAYER = 'r';
-  private readonly YELLOW_PLAYER = 'y';
   private readonly REGEX_WIN_CONDITION = new RegExp(`${this.RED_PLAYER}{4}|${this.YELLOW_PLAYER}{4}`);
 
   activePlayer = this.RED_PLAYER;
