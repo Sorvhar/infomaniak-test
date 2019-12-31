@@ -1,13 +1,20 @@
 import { State, StateToken, Action, StateContext, Selector, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { InitializeBoard, AddToken } from './board.actions';
+import { InitializeBoard, AddToken, SetWinningCells } from './board.actions';
 import { GameState, GameModel } from '../game/game.state';
 import { strict } from 'assert';
 import { state } from '@angular/animations';
 import { COLUMNS, ROWS, REGEX_WIN_CONDITION } from 'src/app/shared/constants';
 
+export interface CellModel {
+    column: number;
+    row: number;
+    value: string;
+    isWinning: boolean;
+}
+
 export interface BoardModel {
-    columns: string[][];
+    columns: CellModel[][];
     tokenCount: number;
     lastPlayedTokenRowIndex: number;
 }
@@ -28,7 +35,7 @@ export class BoardState {
     constructor(private store: Store) { }
 
     @Selector()
-    static getColumns(state: BoardModel): string[][] {
+    static getColumns(state: BoardModel): CellModel[][] {
         return state.columns;
     }
 
@@ -39,10 +46,22 @@ export class BoardState {
 
     @Action(InitializeBoard)
     initializeBoard(ctx: StateContext<BoardModel>, action: InitializeBoard) {
+        const newColumns: CellModel[][] = [];
+        for (let colIndex = 0; colIndex < action.columns; colIndex++) {
+            newColumns.push([]);
+            for (let rowIndex = 0; rowIndex < action.rows; rowIndex++) {
+                newColumns[colIndex].push({
+                    column: colIndex,
+                    row: rowIndex,
+                    value: null,
+                    isWinning: false
+                });
+            }
+        }
+
         ctx.setState(state => ({
             ...state,
-            columns: Array(action.columns).fill([])
-                .map(x => Array(action.rows).fill(null)),
+            columns: newColumns,
             tokenCount: 0
         }));
     }
@@ -51,16 +70,23 @@ export class BoardState {
     addToken(ctx: StateContext<BoardModel>, action: AddToken) {
         ctx.setState(state => {
             const game = this.store.selectSnapshot<GameModel>(GameState);
-            const lastRowIndex = state.columns[action.colIndex].lastIndexOf(null);
+            const lastEmptyCell = state.columns[action.colIndex]
+                .filter(c => c.value === null)
+                .reduce((prev, curr) => {
+                    return curr.row > prev.row ? curr : prev;
+                });
 
             // Update board to set the last cell of selected column to active player value
             return {
                 ...state,
-                columns: state.columns.map((arrColumn, index) => {
-                    if (index === action.colIndex) {
-                        return arrColumn.map((cell, index) => {
-                            if (index === lastRowIndex) {
-                                return game.activePlayer;
+                columns: state.columns.map((arrColumn, colIndex) => {
+                    if (colIndex === action.colIndex) {
+                        return arrColumn.map((cell, rowIndex) => {
+                            if (rowIndex === lastEmptyCell.row) {
+                                return {
+                                    ...cell,
+                                    value: game.activePlayer
+                                };
                             }
                             return cell;
                         });
@@ -68,8 +94,28 @@ export class BoardState {
                     return arrColumn;
                 }),
                 tokenCount: state.tokenCount + 1,
-                lastPlayedTokenRowIndex: lastRowIndex
-            }
+                lastPlayedTokenRowIndex: lastEmptyCell.row
+            };
+        });
+    }
+
+    @Action(SetWinningCells)
+    setWinningCells(ctx: StateContext<BoardModel>, action: SetWinningCells) {
+        ctx.setState(state => {
+            return {
+                ...state,
+                columns: state.columns.map(col => {
+                    return col.map(cell => {
+                        if (action.winningCells.find(x => x.column === cell.column && x.row === cell.row && x.value === cell.value)) {
+                            return {
+                                ...cell,
+                                isWinning: true
+                            };
+                        }
+                        return cell;
+                    });
+                })
+            };
         });
     }
 }

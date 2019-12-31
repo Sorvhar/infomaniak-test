@@ -1,11 +1,11 @@
 <button mat-button (click)="reset()">Reset</button>
 <div class="main__board">
-    <ng-container *ngIf="columns$ | async as columns">
-        <div class="main__column" *ngFor="let col of columns; let colIndex = index" (click)="addToken(colIndex)">
-            <div class="main__cell"
-                [ngClass]="{ 'main__cell--active-r': row === 'r', 'main__cell--active-y': row === 'y'}"
-                *ngFor="let row of col; let rowIndex = index">
-            </div>
-        </div>
-    </ng-container>
+  <ng-container *ngIf="columns$ | async as columns">
+    <div class="main__column" *ngFor="let col of columns; let colIndex = index" (click)="addToken(colIndex)">
+      <div class="main__cell" *ngFor="let cell of col; let rowIndex = index"
+        [ngClass]="{'main__cell--active-r': cell.value === 'r', 'main__cell--active-y': cell.value === 'y'}">
+        <mat-icon *ngIf="cell.isWinning" aria-hidden="false" aria-label="Happy icon">tag_faces</mat-icon>
+      </div>
+    </div>
+  </ng-container>
 </div>

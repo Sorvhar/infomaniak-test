@@ -54,9 +54,11 @@ export class GameState {
     @Action(ResetTheGame)
     resetTheGame(ctx: StateContext<GameModel>) {
         ctx.setState(state => ({
+            ...state,
             activePlayer: RED_PLAYER,
             gameStopped: false,
-            draw: false
+            draw: false,
+            winningCells: []
         }));
     }
 }

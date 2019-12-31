@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { BoardState } from 'src/app/store/board/board.state';
+import { BoardState, CellModel } from 'src/app/store/board/board.state';
 import { BoardService } from './board.service';
 import { GameService } from '../shared/game.service';
 
@@ -11,7 +11,7 @@ import { GameService } from '../shared/game.service';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  @Select(BoardState.getColumns) columns$: Observable<string[][]>;
+  @Select(BoardState.getColumns) columns$: Observable<CellModel[][]>;
 
   constructor(
     private store: Store,
