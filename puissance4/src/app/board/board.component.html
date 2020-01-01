@@ -1,15 +1,13 @@
-<section class="main__board">
+<section class="board">
   <ng-container *ngIf="columns$ | async as columns">
-    <div class="main__column"
+    <div class="board__column"
          *ngFor="let col of columns; let colIndex = index"
          (click)="addToken(colIndex)">
-      <div class="main__cell"
+      <div class="board__cell"
            *ngFor="let cell of col; let rowIndex = index"
            [ngClass]="getCellClass(cell)">
-        <mat-icon *ngIf="cell.value && !cell.isWinning">radio_button_unchecked</mat-icon>
-        <mat-icon *ngIf="cell.isWinning"
-                  aria-hidden="false"
-                  aria-label="Happy icon">sentiment_satisfied_alt</mat-icon>
+        <div *ngIf="cell.value"
+             class="board__cell-inner"></div>
       </div>
     </div>
   </ng-container>

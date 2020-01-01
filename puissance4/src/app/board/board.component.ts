@@ -21,8 +21,8 @@ export class BoardComponent implements OnInit {
 
   getCellClass(cell: CellModel) {
     return {
-      'main__cell--active-r': cell.value === RED_PLAYER,
-      'main__cell--active-y': cell.value === YELLOW_PLAYER
+      'board__cell--active-r': cell.value === RED_PLAYER,
+      'board__cell--active-y': cell.value === YELLOW_PLAYER
     };
   }
 

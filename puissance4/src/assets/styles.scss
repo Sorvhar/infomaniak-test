@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 $redPlayer : rgb(213, 0, 0);
 $yellowPlayer: rgb(255, 214, 0);
+$lightGray: rgb(33, 33, 33);
 
 html,
 body {
@@ -36,7 +37,7 @@ body {
   grid-area: footer;
 }
 
-.main__board {
+.board {
   display: flex;
   justify-content: center;
   background-color: #204f84;
@@ -44,20 +45,20 @@ body {
   padding: 5px;
 }
 
-.main__column {
+.board__column {
   cursor: pointer;
 }
 
-// .main__column:hover {
+// .board__column:hover {
 //   background-color: rgba(150, 150, 150, 0.4);
 // }
 
-.main__column:active {
+.board__column:active {
   cursor: pointer;
   background-color: rgba(150, 150, 150, 0.4);
 }
 
-.main__cell {
+.board__cell {
   border: 3px solid #007fff;
   border-radius: 50%;
   width: 9vw;
@@ -79,7 +80,14 @@ body {
   }
 }
 
-.main__information-panel {
+.board__cell-inner {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  border: 2px solid $lightGray;
+}
+
+.information-panel {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -98,11 +106,14 @@ body {
 }
 
 .player__badge {
-  width: 24px;
-  height: 24px;
+  padding: 2px;
+  border: 2px solid black;
   border-radius: 50%;
-  border: 2px solid rgb(33, 33, 33);
-  background-color: $redPlayer;
+  // width: 24px;
+  // height: 24px;
+  // border-radius: 50%;
+  // border: 2px solid $lightBorder;
+  // background-color: $redPlayer;
   margin-right: 5px;
 
   &--active-r {
