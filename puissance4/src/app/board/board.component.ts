@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, Select } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { BoardState, CellModel } from 'src/app/store/board/board.state';
 import { BoardService } from './board.service';
-import { GameService } from '../shared/game.service';
+import { RED_PLAYER, YELLOW_PLAYER } from '../shared/constants';
 
 @Component({
   selector: 'app-board',
@@ -13,21 +13,20 @@ import { GameService } from '../shared/game.service';
 export class BoardComponent implements OnInit {
   @Select(BoardState.getColumns) columns$: Observable<CellModel[][]>;
 
-  constructor(
-    private store: Store,
-    private boardSvc: BoardService,
-    private gameSvc: GameService) { }
+  constructor(private boardSvc: BoardService) { }
 
   ngOnInit() {
     this.boardSvc.initializeBoard();
   }
 
-  addToken(colIndex: number) {
-    this.boardSvc.addToken(colIndex);
+  getCellClass(cell: CellModel) {
+    return {
+      'main__cell--active-r': cell.value === RED_PLAYER,
+      'main__cell--active-y': cell.value === YELLOW_PLAYER
+    };
   }
 
-  reset() {
-    this.gameSvc.resetTheGame();
-    this.boardSvc.initializeBoard();
+  addToken(colIndex: number) {
+    this.boardSvc.addToken(colIndex);
   }
 }

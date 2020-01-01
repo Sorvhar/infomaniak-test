@@ -7,6 +7,6 @@ export class StopTheGame {
     constructor(public draw: boolean) { }
 }
 
-export class ResetTheGame {
+export class RestartTheGame {
     static readonly type = '[Game] ResetTheGame';
 }

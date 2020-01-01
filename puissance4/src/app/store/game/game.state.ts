@@ -1,5 +1,5 @@
 import { State, StateToken, Action, StateContext, Actions, Selector, Store } from '@ngxs/store';
-import { SwitchPlayer, StopTheGame, ResetTheGame } from './game.actions';
+import { SwitchPlayer, StopTheGame, RestartTheGame } from './game.actions';
 import { Injectable } from '@angular/core';
 import { RED_PLAYER, YELLOW_PLAYER } from 'src/app/shared/constants';
 
@@ -25,12 +25,12 @@ export class GameState {
     constructor(private store: Store) { }
 
     @Selector()
-    static isGameStopped(state: GameModel) {
+    static isGameStopped(state: GameModel): boolean {
         return state.gameStopped;
     }
 
     @Selector()
-    static getActivePlayer(state: GameModel) {
+    static getActivePlayer(state: GameModel): string {
         return state.activePlayer;
     }
 
@@ -51,7 +51,7 @@ export class GameState {
         }));
     }
 
-    @Action(ResetTheGame)
+    @Action(RestartTheGame)
     resetTheGame(ctx: StateContext<GameModel>) {
         ctx.setState(state => ({
             ...state,

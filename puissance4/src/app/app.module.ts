@@ -15,18 +15,28 @@ import { BoardState } from './store/board/board.state';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { HeaderComponent } from './header/header.component';
+import { InformationPanelComponent } from './information-panel/information-panel.component';
+import { PlayerCardComponent } from './information-panel/player-card/player-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BoardComponent
+    BoardComponent,
+    HeaderComponent,
+    InformationPanelComponent,
+    PlayerCardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    NgxsModule.forRoot([GameState, BoardState], { developmentMode: !environment.production }),
+    MatCardModule,
+    NgxsModule.forRoot([GameState, BoardState], {
+      developmentMode: !environment.production
+    }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     LayoutModule,
