@@ -2,9 +2,6 @@ import { State, StateToken, Action, StateContext, Selector, Store } from '@ngxs/
 import { Injectable } from '@angular/core';
 import { InitializeBoard, AddToken, SetWinningCells } from './board.actions';
 import { GameState, GameModel } from '../game/game.state';
-import { strict } from 'assert';
-import { state } from '@angular/animations';
-import { COLUMNS, ROWS, REGEX_WIN_CONDITION } from 'src/app/shared/constants';
 
 export interface CellModel {
     column: number;

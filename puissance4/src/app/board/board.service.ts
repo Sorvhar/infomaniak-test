@@ -27,26 +27,29 @@ export class BoardService {
     if (!gameState.gameStopped && !isColumnFull) {
       this.store.dispatch(new AddToken(colIndex)).subscribe(
         () => {
-          const winningCells = this.checkWin(colIndex);
-          if (winningCells && winningCells.length === 4) {
-            this.store.dispatch([new StopTheGame(false), new SetWinningCells(winningCells)]);
-          } else if (this.isBoardFull()) {
-            this.store.dispatch(new StopTheGame(true));
-          } else {
-            this.store.dispatch(new SwitchPlayer());
-          }
+          this.checkWin(colIndex);
         }
       );
     }
   }
 
-  private checkWin(colIndex: number): CellModel[] {
-    const board = this.store.selectSnapshot<BoardModel>(BoardState);
+  private checkWin(colIndex: number) {
+    // Read the new board state
+    const boardState = this.store.selectSnapshot<BoardModel>(BoardState);
 
-    return this.checkColumn(board.columns, colIndex)
-      || this.checkRow(board.columns, board.lastPlayedTokenRowIndex)
-      || this.checkAscendingDiagonal(board.columns, colIndex, board.lastPlayedTokenRowIndex)
-      || this.checkDescendingDiagonal(board.columns, colIndex, board.lastPlayedTokenRowIndex);
+    const winningCells =
+      this.checkColumn(boardState.columns, colIndex)
+      || this.checkRow(boardState.columns, boardState.lastPlayedTokenRowIndex)
+      || this.checkAscendingDiagonal(boardState.columns, colIndex, boardState.lastPlayedTokenRowIndex)
+      || this.checkDescendingDiagonal(boardState.columns, colIndex, boardState.lastPlayedTokenRowIndex);
+
+    if (winningCells && winningCells.length === 4) {
+      this.store.dispatch([new StopTheGame(false), new SetWinningCells(winningCells)]);
+    } else if (this.isBoardFull(boardState)) {
+      this.store.dispatch(new StopTheGame(true));
+    } else {
+      this.store.dispatch(new SwitchPlayer());
+    }
   }
   private checkColumn(columns: CellModel[][], colIndex: number): CellModel[] {
     return this.getWinningCells(columns[colIndex]);
@@ -102,8 +105,7 @@ export class BoardService {
     }
   }
 
-  private isBoardFull(): boolean {
-    const board = this.store.selectSnapshot<BoardModel>(BoardState);
-    return board.tokenCount === ROWS * COLUMNS;
+  private isBoardFull(boardState: BoardModel): boolean {
+    return boardState.tokenCount === ROWS * COLUMNS;
   }
 }
