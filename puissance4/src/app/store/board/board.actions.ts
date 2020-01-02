@@ -1,16 +1,16 @@
 import { CellModel } from './board.state';
 
 export class InitializeBoard {
-    static readonly type = '[Board] Initialize';
-    constructor(public columns: number, public rows: number) { }
+  static readonly type = '[Board] Initialize';
+  constructor(public columns: number, public rows: number) { }
 }
 
 export class AddToken {
-    static readonly type = '[Board] AddToken';
-    constructor(public colIndex: number) { }
+  static readonly type = '[Board] AddToken';
+  constructor(public colIndex: number) { }
 }
 
 export class SetWinningCells {
-    static readonly type = '[Board] SetWinningCells';
-    constructor(public winningCells: CellModel[]) { }
+  static readonly type = '[Board] SetWinningCells';
+  constructor(public winningCells: CellModel[]) { }
 }

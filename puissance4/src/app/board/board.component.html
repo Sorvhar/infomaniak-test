@@ -1,13 +1,15 @@
 <section class="board">
   <ng-container *ngIf="columns$ | async as columns">
     <div class="board__column"
-         *ngFor="let col of columns; let colIndex = index"
+         *ngFor="let col of columns; let colIndex = index; trackBy: colTrackByFn"
          (click)="addToken(colIndex)">
       <div class="board__cell"
-           *ngFor="let cell of col; let rowIndex = index"
-           [ngClass]="getCellClass(cell)">
+           *ngFor="let cell of col; trackBy: cellTrackByFn">
         <div *ngIf="cell.value"
-             class="board__cell-inner"></div>
+             class="board__token"
+             [ngClass]="getTokenClass(cell)">
+          <div class="board__token-inner"></div>
+        </div>
       </div>
     </div>
   </ng-container>

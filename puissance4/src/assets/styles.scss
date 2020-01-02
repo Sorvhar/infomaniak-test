@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-$redPlayer : rgb(213, 0, 0);
+$redPlayer: rgb(213, 0, 0);
 $yellowPlayer: rgb(255, 214, 0);
 $lightGray: rgb(33, 33, 33);
 
 html,
 body {
   height: 100%;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 body {
@@ -49,15 +49,6 @@ body {
   cursor: pointer;
 }
 
-// .board__column:hover {
-//   background-color: rgba(150, 150, 150, 0.4);
-// }
-
-.board__column:active {
-  cursor: pointer;
-  background-color: rgba(150, 150, 150, 0.4);
-}
-
 .board__cell {
   border: 3px solid #007fff;
   border-radius: 50%;
@@ -70,17 +61,30 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.board__token {
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &--active-r {
     background-color: $redPlayer;
+    animation-name: fall-animation;
+    animation-duration: 500ms;
   }
 
   &--active-y {
     background-color: $yellowPlayer;
+    animation-name: fall-animation;
+    animation-duration: 500ms;
   }
 }
 
-.board__cell-inner {
+.board__token-inner {
   width: 50%;
   height: 50%;
   border-radius: 50%;
@@ -109,12 +113,8 @@ body {
   padding: 2px;
   border: 2px solid black;
   border-radius: 50%;
-  // width: 24px;
-  // height: 24px;
-  // border-radius: 50%;
-  // border: 2px solid $lightBorder;
-  // background-color: $redPlayer;
   margin-right: 5px;
+  transition: background-color 0.2s linear;
 
   &--active-r {
     background-color: $redPlayer;
@@ -122,5 +122,15 @@ body {
 
   &--active-y {
     background-color: $yellowPlayer;
+  }
+}
+
+@keyframes fall-animation {
+  from {
+    transform: translateY(-200%);
+  }
+
+  to {
+    transform: translateY(0);
   }
 }
