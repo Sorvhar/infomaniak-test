@@ -22,16 +22,18 @@ export class BoardComponent implements OnInit {
   }
 
   addToken(colIndex: number) {
+    console.log('addToken');
+
     this.boardSvc.addToken(colIndex);
   }
 
   getTokenClass(cell: CellModel) {
     switch (cell.value) {
       case RED_PLAYER:
-        return 'board__token board__token--active-r';
+        return 'board__token-r';
 
       case YELLOW_PLAYER:
-        return 'board__token board__token--active-y';
+        return 'board__token-y';
 
       default:
         return '';
