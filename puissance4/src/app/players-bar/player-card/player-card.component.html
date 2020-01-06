@@ -1,8 +1,9 @@
 <div class="player__card"
-     [ngClass]="getCardClass()">
+     [ngClass]="getCardClasses()">
   <img class="player__avatar"
        src="./assets/images/avatars/64_{{avatarId}}.png" />
-  <div class="player__name mat-body-strong">
+  <div class="player__name mat-body-strong"
+       [ngClass]="getNameClasses()">
     {{ playerName }}
   </div>
 </div>

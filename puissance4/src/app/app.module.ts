@@ -27,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GameSettingsState } from './store/game-settings/game-settings.state';
 import { PlayersBarComponent } from './players-bar/players-bar.component';
 import { PlayerCardComponent } from './players-bar/player-card/player-card.component';
+import { TitleCasePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,9 @@ import { PlayerCardComponent } from './players-bar/player-card/player-card.compo
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    TitleCasePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

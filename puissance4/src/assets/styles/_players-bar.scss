@@ -1,15 +1,21 @@
 .players-bar {
   display: flex;
   justify-content: space-between;
-  padding: 1vh 0;
+  padding: 2vh 0;
 }
 
 .player__card {
   display: flex;
   align-items: center;
+  transition: filter 0.5s linear;
 
   &--right {
     flex-direction: row-reverse;
+  }
+
+  &--inactive {
+    filter: grayscale(1);
+    color: lightgray;
   }
 }
 
@@ -23,4 +29,12 @@
 
 .player__name {
   margin: 0 8px;
+
+  &--red {
+    border-bottom: 3px solid $redPlayer;
+  }
+
+  &--yellow {
+    border-bottom: 3px solid $yellowPlayer;
+  }
 }

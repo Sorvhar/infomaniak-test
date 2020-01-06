@@ -21,12 +21,14 @@
         <circle [attr.cx]="50 + colIndex * 100"
                 [attr.cy]="50 + cellIndex * 100"
                 r="40"
-                class="board__cell">
+                class="board__cell"
+                [ngClass]="getCellClass(cell)">
         </circle>
         <circle *ngIf="cell.value"
                 [attr.cx]="50 + colIndex * 100"
                 [attr.cy]="50 + cellIndex * 100"
                 r="36"
+                class="board__token"
                 [ngClass]="getTokenClass(cell)">
           <animate appAddToken
                    attributeType="XML"

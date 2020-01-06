@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GameService } from '../shared/game.service';
 import { BoardService } from '../board/board.service';
 import { Select, Store } from '@ngxs/store';
-import { GameState } from '../store/game/game.state';
+import { GameState, GameModel } from '../store/game/game.state';
 import { Observable } from 'rxjs';
 import { RED_PLAYER, YELLOW_PLAYER } from '../shared/constants';
 import { GameSettingsModel, GameSettingsState } from '../store/game-settings/game-settings.state';
@@ -13,9 +13,10 @@ import { GameSettingsModel, GameSettingsState } from '../store/game-settings/gam
   styleUrls: ['./information-panel.component.scss']
 })
 export class InformationPanelComponent implements OnInit {
-  @Select(GameState.getActivePlayer) activePlayer$: Observable<string>;
+  @Select(GameState) game$: Observable<GameModel>;
 
   activePlayerName: string;
+  isDraw: boolean;
 
   constructor(
     private gameSvc: GameService,
@@ -23,16 +24,15 @@ export class InformationPanelComponent implements OnInit {
     private store: Store) { }
 
   ngOnInit() {
-    this.activePlayer$.subscribe(player => {
-      const gameState = this.store.selectSnapshot<GameSettingsModel>(GameSettingsState);
-
-      switch (player) {
+    this.game$.subscribe(game => {
+      const gameSettings = this.store.selectSnapshot<GameSettingsModel>(GameSettingsState);
+      switch (game.activePlayer) {
         case RED_PLAYER:
-          this.activePlayerName = gameState.redPlayerName;
+          this.activePlayerName = gameSettings.redPlayerName;
           break;
 
         case YELLOW_PLAYER:
-          this.activePlayerName = gameState.yellowPlayerName;
+          this.activePlayerName = gameSettings.yellowPlayerName;
           break;
 
         default:

@@ -1,7 +1,7 @@
-import { State, StateToken, Action, StateContext, Actions, Selector, Store } from '@ngxs/store';
-import { SwitchPlayer, StopTheGame, StartTheGame } from './game.actions';
 import { Injectable } from '@angular/core';
+import { Action, Selector, State, StateContext, StateToken, Store } from '@ngxs/store';
 import { RED_PLAYER, YELLOW_PLAYER } from 'src/app/shared/constants';
+import { StartTheGame, StopTheGame, SwitchPlayer } from './game.actions';
 
 export interface GameModel {
   activePlayer: string;

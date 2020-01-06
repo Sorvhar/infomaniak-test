@@ -1,6 +1,10 @@
 <section class="information-panel">
-  <div *ngIf="activePlayerName">
-    {{ activePlayerName }}'s turn
+  <div *ngIf="activePlayerName && !(game$ |async).gameStopped">
+    <span class="information-panel__active-player">{{ activePlayerName }}</span>'s turn
+  </div>
+  <div *ngIf="(game$ |async).gameStopped">
+    <span *ngIf="(game$ |async).draw">Draw...</span>
+    <span *ngIf="!(game$ |async).draw">{{ activePlayerName }} wins !</span>
   </div>
   <button mat-stroked-button
           color="warn"

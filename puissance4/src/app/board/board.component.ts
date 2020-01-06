@@ -23,17 +23,17 @@ export class BoardComponent implements OnInit {
     this.boardSvc.addToken(colIndex);
   }
 
+  getCellClass(cell: CellModel) {
+    return {
+      'board__cell--winning': cell.isWinning
+    };
+  }
+
   getTokenClass(cell: CellModel) {
-    switch (cell.value) {
-      case RED_PLAYER:
-        return 'board__token-r';
-
-      case YELLOW_PLAYER:
-        return 'board__token-y';
-
-      default:
-        return '';
-    }
+    return {
+      'board__token--red': cell.value === RED_PLAYER,
+      'board__token--yellow': cell.value === YELLOW_PLAYER
+    };
   }
 
   colTrackByFn(index: number, col: []) {
