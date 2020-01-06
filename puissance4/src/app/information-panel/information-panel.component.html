@@ -1,4 +1,5 @@
 <section class="information-panel">
+  <div *ngIf="!activePlayerName">Waiting for players...</div>
   <div *ngIf="activePlayerName && !(game$ |async).gameStopped">
     <span class="information-panel__active-player">{{ activePlayerName }}</span>'s turn
   </div>
