@@ -16,10 +16,17 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from './header/header.component';
 import { InformationPanelComponent } from './information-panel/information-panel.component';
 import { PlayerCardComponent } from './information-panel/player-card/player-card.component';
 import { AddTokenDirective } from './board/add-token.directive';
+import { NewGameDialogComponent } from './new-game-dialog/new-game-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GameSettingsState } from './store/game-settings/game-settings.state';
+import { PlayersBarComponent } from './players-bar/players-bar.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +35,12 @@ import { AddTokenDirective } from './board/add-token.directive';
     HeaderComponent,
     InformationPanelComponent,
     PlayerCardComponent,
-    AddTokenDirective
+    AddTokenDirective,
+    NewGameDialogComponent,
+    PlayersBarComponent,
+  ],
+  entryComponents: [
+    NewGameDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -36,14 +48,19 @@ import { AddTokenDirective } from './board/add-token.directive';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
-    NgxsModule.forRoot([GameState, BoardState], {
+    NgxsModule.forRoot([GameState, GameSettingsState, BoardState], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     LayoutModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

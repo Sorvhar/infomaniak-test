@@ -1,0 +1,34 @@
+.player {
+  display: flex;
+  justify-content: space-between;
+  padding: 1vh 0;
+}
+
+.player__card {
+  display: flex;
+  align-items: center;
+}
+
+.player__badge {
+  padding: 2px;
+  border: 2px solid black;
+  border-radius: 50%;
+  margin-right: 5px;
+  z-index: 1;
+  transition: background-color 0.2s linear;
+
+  &--active-r {
+    background-color: $redPlayer;
+  }
+
+  &--active-y {
+    background-color: $yellowPlayer;
+  }
+}
+
+.player__name {
+  border: 1px solid rgb(33, 33, 33);
+  padding: 0 8px 0 16px;
+  margin-left: -16px;
+  border-radius: 4px;
+}

@@ -1,0 +1,16 @@
+$redPlayer: rgb(213, 0, 0);
+$yellowPlayer: rgb(255, 214, 0);
+$lightGray: rgb(33, 33, 33);
+
+html,
+body {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@mixin name {}

@@ -1,0 +1,29 @@
+.board {
+  fill: #002ae0;
+}
+
+.board__column {
+  fill-opacity: 0;
+  cursor: pointer;
+}
+
+.board__cell {
+  stroke: blue;
+  stroke-width: 4;
+  fill: white;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.board__token {
+  stroke: blue;
+  stroke-width: 4;
+}
+
+.board__token-r {
+  fill: $redPlayer;
+}
+
+.board__token-y {
+  fill: $yellowPlayer;
+}

@@ -3,6 +3,8 @@ import { Select } from '@ngxs/store';
 import { GameState } from 'src/app/store/game/game.state';
 import { Observable } from 'rxjs';
 import { RED_PLAYER, YELLOW_PLAYER } from 'src/app/shared/constants';
+import { GameSettingsState } from 'src/app/store/game-settings/game-settings.state';
+import { GameSettings } from 'src/app/models/game-settings.model';
 
 @Component({
   selector: 'app-player-card',
@@ -11,6 +13,7 @@ import { RED_PLAYER, YELLOW_PLAYER } from 'src/app/shared/constants';
 })
 export class PlayerCardComponent implements OnInit {
   @Select(GameState.getActivePlayer) activePlayer$: Observable<string>;
+  @Select(GameSettingsState) gameSettings$: Observable<GameSettings>;
 
   badgeClass: any;
 
