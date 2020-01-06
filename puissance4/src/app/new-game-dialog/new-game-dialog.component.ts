@@ -10,8 +10,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class NewGameDialogComponent implements OnInit {
   gameSettingsForm = this.fb.group({
-    redPlayerName: ['jerome', Validators.required],
-    yellowPlayerName: ['jessica', Validators.required]
+    redPlayerName: ['', Validators.required],
+    yellowPlayerName: ['', Validators.required]
   });
 
   constructor(
