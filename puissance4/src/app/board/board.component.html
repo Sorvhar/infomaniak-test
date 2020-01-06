@@ -1,47 +1,50 @@
-  <ng-container *ngIf="columns$ | async as columns">
-    <svg xmlns="http://www.w3.org/2000/svg"
-         viewBox="0 0 700 600"
-         *ngIf="columns$ | async as columns">
+<ng-container *ngIf="columns$ | async as columns">
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 700 600">
+    <rect x="0"
+          y="0"
+          width="700"
+          height="600"
+          rx="15"
+          ry="15"
+          fill="#002ae0"></rect>
 
-      <rect x="0"
+    <ng-container *ngFor="let col of columns; let colIndex = index; trackBy: colTrackByFn">
+      <rect (click)="addToken(colIndex)"
+            [attr.x]="colIndex * 100"
             y="0"
-            width="700"
+            width="100"
             height="600"
-            rx="15"
-            ry="15"
-            fill="#002ae0"></rect>
+            fill-opacity="0"
+            cursor="pointer"></rect>
 
-      <ng-container *ngFor="let col of columns; let colIndex = index; trackBy: colTrackByFn">
-        <rect (click)="addToken(colIndex)"
-              [attr.x]="colIndex * 100"
-              y="0"
-              width="100"
-              height="600"
-              fill-opacity="0"></rect>
-
-        <ng-container *ngFor="let cell of col; let cellIndex = index; trackBy: cellTrackByFn">
-          <circle (click)="addToken(colIndex)"
-                  [attr.cx]="50 + (colIndex * 100)"
-                  [attr.cy]="50 + (cellIndex * 100)"
-                  r="40"
-                  stroke="blue"
-                  stroke-width="4"
-                  fill="white">
-          </circle>
-          <circle *ngIf="cell.value"
-                  [attr.cx]="50 + (colIndex * 100)"
-                  [attr.cy]="50 + (cellIndex * 100)"
-                  r="40"
-                  stroke="blue"
-                  stroke-width="4"
-                  [ngClass]="getTokenClass(cell)">
-            <animate attributeType="XML"
-                     attributeName="cy"
-                     from="0"
-                     [attr.to]="50 + (cellIndex * 100)"
-                     dur="1s" />
-          </circle>
-        </ng-container>
+      <ng-container *ngFor="let cell of col; let cellIndex = index; trackBy: cellTrackByFn">
+        <circle [attr.cx]="50 + colIndex * 100"
+                [attr.cy]="50 + cellIndex * 100"
+                r="40"
+                stroke="blue"
+                stroke-width="4"
+                fill="white"
+                cursor="pointer"
+                pointer-events="none">
+        </circle>
+        <circle *ngIf="cell.value"
+                [attr.cx]="50 + colIndex * 100"
+                [attr.cy]="50 + cellIndex * 100"
+                r="40"
+                stroke="blue"
+                stroke-width="4"
+                [ngClass]="getTokenClass(cell)">
+          <animate appAddToken
+                   [attr.id]="'animation_' + cell.column + '_' + cell.row"
+                   attributeType="XML"
+                   attributeName="cy"
+                   from="0"
+                   [attr.to]="50 + cellIndex * 100"
+                   begin="indefinite"
+                   dur="0.5s" />
+        </circle>
       </ng-container>
-    </svg>
-  </ng-container>
+    </ng-container>
+  </svg>
+</ng-container>

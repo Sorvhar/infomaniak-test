@@ -19,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { HeaderComponent } from './header/header.component';
 import { InformationPanelComponent } from './information-panel/information-panel.component';
 import { PlayerCardComponent } from './information-panel/player-card/player-card.component';
+import { AddTokenDirective } from './board/add-token.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PlayerCardComponent } from './information-panel/player-card/player-card
     BoardComponent,
     HeaderComponent,
     InformationPanelComponent,
-    PlayerCardComponent
+    PlayerCardComponent,
+    AddTokenDirective
   ],
   imports: [
     BrowserModule,

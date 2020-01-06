@@ -37,8 +37,8 @@ export class BoardState {
   }
 
   @Selector()
-  static getTokenCount(state: BoardModel): number {
-    return state.tokenCount;
+  static lastPlayedTokenRowIndex(state: BoardModel): number {
+    return state.lastPlayedTokenRowIndex;
   }
 
   @Action(InitializeBoard)

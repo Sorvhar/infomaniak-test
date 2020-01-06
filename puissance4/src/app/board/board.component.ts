@@ -14,7 +14,6 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 export class BoardComponent implements OnInit {
   @Select(BoardState.getColumns) columns$: Observable<CellModel[][]>;
 
-
   constructor(private boardSvc: BoardService) { }
 
   ngOnInit() {
@@ -22,8 +21,6 @@ export class BoardComponent implements OnInit {
   }
 
   addToken(colIndex: number) {
-    console.log('addToken');
-
     this.boardSvc.addToken(colIndex);
   }
 
