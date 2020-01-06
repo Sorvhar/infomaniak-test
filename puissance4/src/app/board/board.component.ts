@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { BoardState, CellModel } from 'src/app/store/board/board.state';
 import { BoardService } from './board.service';
 import { RED_PLAYER, YELLOW_PLAYER } from '../shared/constants';
-import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'app-board',

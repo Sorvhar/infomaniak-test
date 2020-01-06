@@ -1,3 +1,7 @@
 <section class="players-bar">
-  <app-player-card></app-player-card>
+  <app-player-card [playerName]="(gameSettings$ | async).redPlayerName"
+                   [avatarId]="(gameSettings$ | async).redPlayerAvatarId"></app-player-card>
+  <app-player-card [playerName]="(gameSettings$ | async).yellowPlayerName"
+                   [avatarId]="(gameSettings$ | async).yellowPlayerAvatarId"
+                   [alignRight]="true"></app-player-card>
 </section>

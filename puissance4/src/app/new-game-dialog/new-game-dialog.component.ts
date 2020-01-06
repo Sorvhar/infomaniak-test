@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { GameSettings } from '../models/game-settings.model';
+import { GameSettingsForm } from '../models/game-settings-form.model';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -10,8 +10,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class NewGameDialogComponent implements OnInit {
   gameSettingsForm = this.fb.group({
-    player1Name: ['jerome', Validators.required],
-    player2Name: ['jessica', Validators.required]
+    redPlayerName: ['jerome', Validators.required],
+    yellowPlayerName: ['jessica', Validators.required]
   });
 
   constructor(
@@ -22,7 +22,7 @@ export class NewGameDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dialogRef.close(new GameSettings(this.gameSettingsForm.value));
+    this.dialogRef.close(new GameSettingsForm(this.gameSettingsForm.value));
   }
 
 }

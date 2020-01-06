@@ -1,8 +1,7 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { GameModel, GameState } from '../store/game/game.state';
 import { BoardModel, BoardState, CellModel } from '../store/board/board.state';
-import { strict } from 'assert';
 import { AddToken, InitializeBoard, SetWinningCells } from '../store/board/board.actions';
 import { COLUMNS, ROWS, REGEX_WIN_CONDITION } from '../shared/constants';
 import { SwitchPlayer, StopTheGame } from '../store/game/game.actions';

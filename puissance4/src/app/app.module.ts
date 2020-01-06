@@ -19,7 +19,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from './header/header.component';
 import { InformationPanelComponent } from './information-panel/information-panel.component';
-import { PlayerCardComponent } from './information-panel/player-card/player-card.component';
 import { AddTokenDirective } from './board/add-token.directive';
 import { NewGameDialogComponent } from './new-game-dialog/new-game-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GameSettingsState } from './store/game-settings/game-settings.state';
 import { PlayersBarComponent } from './players-bar/players-bar.component';
+import { PlayerCardComponent } from './players-bar/player-card/player-card.component';
 
 @NgModule({
   declarations: [

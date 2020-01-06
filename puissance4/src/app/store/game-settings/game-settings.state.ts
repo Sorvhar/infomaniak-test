@@ -1,11 +1,12 @@
 import { State, StateToken, Action, StateContext, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { SetGameSettings } from './game-settings.actions';
-import { GameSettings } from 'src/app/models/game-settings.model';
 
 export interface GameSettingsModel {
-  player1Name: string;
-  player2Name: string;
+  redPlayerName: string;
+  yellowPlayerName: string;
+  redPlayerAvatarId: number;
+  yellowPlayerAvatarId: number;
 }
 
 const GAME_SETTINGS_STATE_TOKEN = new StateToken<GameSettingsModel>('gameSettings');
@@ -13,8 +14,10 @@ const GAME_SETTINGS_STATE_TOKEN = new StateToken<GameSettingsModel>('gameSetting
 @State({
   name: GAME_SETTINGS_STATE_TOKEN,
   defaults: {
-    player1Name: '',
-    player2Name: ''
+    redPlayerName: '',
+    yellowPlayerName: '',
+    redPlayerAvatarId: 1,
+    yellowPlayerAvatarId: 1
   }
 })
 @Injectable() // Make it Ivy compatible. See https://www.ngxs.io/advanced/ivy-migration-guide
@@ -26,8 +29,16 @@ export class GameSettingsState {
   setGameSettings(ctx: StateContext<GameSettingsModel>, action: SetGameSettings) {
     ctx.setState(state => ({
       ...state,
-      player1Name: action.settings.player1Name,
-      player2Name: action.settings.player2Name
+      redPlayerName: action.settings.redPlayerName,
+      yellowPlayerName: action.settings.yellowPlayerName,
+      redPlayerAvatarId: this.generateRandomAvatarId(),
+      yellowPlayerAvatarId: this.generateRandomAvatarId()
     }));
+  }
+
+  private generateRandomAvatarId() {
+    const min = 1;
+    const max = 16;
+    return Math.floor(Math.random() * (+max - +min)) + +min;
   }
 }

@@ -15,15 +15,14 @@
   pointer-events: none;
 }
 
-.board__token {
-  stroke: blue;
-  stroke-width: 4;
-}
-
 .board__token-r {
   fill: $redPlayer;
+  stroke: darken($redPlayer, 30%);
+  stroke-width: 6;
 }
 
 .board__token-y {
   fill: $yellowPlayer;
+  stroke: darken($yellowPlayer, 30%);
+  stroke-width: 6;
 }

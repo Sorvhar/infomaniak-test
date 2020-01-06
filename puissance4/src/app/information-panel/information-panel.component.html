@@ -1,4 +1,7 @@
 <section class="information-panel">
+  <div *ngIf="activePlayerName">
+    {{ activePlayerName }}'s turn
+  </div>
   <button mat-stroked-button
           color="warn"
           (click)="restart()">

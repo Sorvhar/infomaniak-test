@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RED_PLAYER, ROWS, COLUMNS, YELLOW_PLAYER, REGEX_WIN_CONDITION } from './shared/constants';
 import { MatDialog } from '@angular/material/dialog';
 import { NewGameDialogComponent } from './new-game-dialog/new-game-dialog.component';
 import { Store } from '@ngxs/store';
 import { SetGameSettings } from './store/game-settings/game-settings.actions';
-import { GameSettings } from './models/game-settings.model';
-import { GameState } from './store/game/game.state';
+import { GameSettingsForm } from './models/game-settings-form.model';
+import { StartTheGame } from './store/game/game.actions';
 
 @Component({
   selector: 'app-root',
@@ -26,8 +25,12 @@ export class AppComponent implements OnInit {
       hasBackdrop: true
     });
 
-    dialogRef.afterClosed().subscribe((result: GameSettings) => {
-      this.store.dispatch(new SetGameSettings(result));
+    dialogRef.afterClosed().subscribe((result: GameSettingsForm) => {
+      this.store.dispatch(new SetGameSettings(result)).subscribe(
+        () => {
+          this.store.dispatch(new StartTheGame());
+        }
+      );
     });
   }
 }
