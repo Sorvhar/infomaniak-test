@@ -10,9 +10,12 @@
 .board__cell {
   stroke: blue;
   stroke-width: 6;
-  fill: white;
   cursor: pointer;
   pointer-events: none;
+
+  $background: map-get($theme, background);
+  $background-color: mat-color($background, background);
+  fill: $background-color;
 }
 
 .board__cell--winning {

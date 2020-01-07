@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { GameModel, GameState } from '../store/game/game.state';
-import { BoardModel, BoardState, CellModel } from '../store/board/board.state';
+import { COLUMNS, REGEX_WIN_CONDITION, ROWS } from '../shared/constants';
 import { AddToken, InitializeBoard, SetWinningCells } from '../store/board/board.actions';
-import { COLUMNS, ROWS, REGEX_WIN_CONDITION } from '../shared/constants';
-import { SwitchPlayer, StopTheGame } from '../store/game/game.actions';
+import { BoardModel, BoardState, CellModel } from '../store/board/board.state';
+import { StopTheGame, SwitchPlayer } from '../store/game/game.actions';
+import { GameModel, GameState } from '../store/game/game.state';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +24,9 @@ export class BoardService {
     const isColumnFull = boardState.columns[colIndex].every(cell => cell.value !== null);
 
     if (!gameState.gameStopped && !isColumnFull) {
-      this.store.dispatch(new AddToken(colIndex)).subscribe(
-        () => {
-          this.checkWin(colIndex);
-        }
-      );
+      this.store.dispatch(new AddToken(colIndex)).subscribe(() => {
+        this.checkWin(colIndex);
+      });
     }
   }
 

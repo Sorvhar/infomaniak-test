@@ -1,4 +1,15 @@
 <mat-toolbar class="header"
              color="primary">
-  <span>Puissance 4</span>
+  <mat-toolbar-row>
+    <h1>Puissance 4</h1>
+    <span class="header__spacer"></span>
+    <mat-icon *ngIf="isDarkTheme | async"
+              class="header__icon"
+              matTooltip="Toggle light theme"
+              (click)="toggleDarkTheme(false)">wb_sunny</mat-icon>
+    <mat-icon *ngIf="!(isDarkTheme | async)"
+              class="header__icon"
+              matTooltip="Toggle dark theme"
+              (click)="toggleDarkTheme(true)">brightness_3</mat-icon>
+  </mat-toolbar-row>
 </mat-toolbar>

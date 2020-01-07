@@ -1,4 +1,4 @@
-import { Directive, ElementRef, AfterViewInit, OnInit } from '@angular/core';
+import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appAddToken]'
@@ -11,7 +11,7 @@ export class AddTokenDirective implements OnInit {
   }
 
   ngOnInit() {
-    // Cast to any is needed as beginElement does not exists in lib.dom.ts
+    // Cast to any is needed as beginElement does not exists in lib.dom.ts for SVGAnimationElement
     (this.element as any).beginElement();
   }
 }
