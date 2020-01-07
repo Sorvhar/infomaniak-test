@@ -3,6 +3,7 @@
                    [playerName]="(gameSettings$ | async).redPlayerName"
                    [avatarId]="(gameSettings$ | async).redPlayerAvatarId"
                    [isActive]="isRedPlayerActive"></app-player-card>
+
   <app-player-card [playerType]="'yellow'"
                    [playerName]="(gameSettings$ | async).yellowPlayerName"
                    [avatarId]="(gameSettings$ | async).yellowPlayerAvatarId"

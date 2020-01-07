@@ -58,13 +58,13 @@ export class BoardService {
     let tmpColIndex = colIndex;
     let tmpRowIndex = rowIndex;
 
-    // Find indexes of the diagonal's starting point (i.e the top left cell)
+    // Find indexes of the diagonal starting point (i.e the top left cell)
     while (tmpColIndex > 0 && tmpRowIndex > 0) {
       tmpColIndex--;
       tmpRowIndex--;
     }
 
-    // Create an array with all the diagonal's values
+    // Create an array with all the diagonal values
     const arrAscendingDiagonal: CellModel[] = [];
     while (tmpColIndex < COLUMNS && tmpRowIndex < ROWS) {
       arrAscendingDiagonal.push(columns[tmpColIndex][tmpRowIndex]);
@@ -78,13 +78,13 @@ export class BoardService {
     let tmpColIndex = colIndex;
     let tmpRowIndex = rowIndex;
 
-    // Find indexes of the diagonal's starting point (i.e the top right cell)
+    // Find indexes of the diagonal starting point (i.e the top right cell)
     while (tmpColIndex < COLUMNS - 1 && tmpRowIndex > 0) {
       tmpColIndex++;
       tmpRowIndex--;
     }
 
-    // Create an array with all the diagonal's values
+    // Create an array with all the diagonal values
     const arrDescendingDiagonal: CellModel[] = [];
     while (tmpColIndex > 0 && tmpRowIndex < ROWS) {
       arrDescendingDiagonal.push(columns[tmpColIndex][tmpRowIndex]);
