@@ -5,11 +5,11 @@
     <span class="header__spacer"></span>
     <mat-icon *ngIf="isDarkTheme | async"
               class="header__icon"
-              matTooltip="Toggle light theme"
+              matTooltip="Activer le thème clair"
               (click)="toggleDarkTheme(false)">wb_sunny</mat-icon>
     <mat-icon *ngIf="!(isDarkTheme | async)"
               class="header__icon"
-              matTooltip="Toggle dark theme"
+              matTooltip="Activer le thème sombre"
               (click)="toggleDarkTheme(true)">brightness_3</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -1,13 +1,13 @@
 <section class="information-panel">
-  <div *ngIf="!activePlayerName">Waiting for players...</div>
+  <div *ngIf="!activePlayerName">En attente de joueurs...</div>
   <div *ngIf="activePlayerName && !(game$ |async).gameStopped">
-    <span class="information-panel__active-player">{{ activePlayerName }}</span>'s turn
+    Tour de <span class="information-panel__active-player">{{ activePlayerName }}</span>
   </div>
   <div *ngIf="(game$ |async).gameStopped">
-    <span *ngIf="(game$ |async).draw">Draw...</span>
-    <span *ngIf="!(game$ |async).draw">{{ activePlayerName }} wins !</span>
+    <span *ngIf="(game$ |async).draw">Match nul...</span>
+    <span *ngIf="!(game$ |async).draw">{{ activePlayerName }} a gagné !</span>
   </div>
   <button mat-stroked-button
           color="warn"
-          (click)="restart()">RESTART</button>
+          (click)="restart()">REJOUER</button>
 </section>

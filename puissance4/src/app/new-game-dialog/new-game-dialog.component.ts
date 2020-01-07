@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { GameSettingsForm } from '../models/game-settings-form.model';
-import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-game-dialog',
@@ -10,8 +10,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class NewGameDialogComponent implements OnInit {
   gameSettingsForm = this.fb.group({
-    redPlayerName: ['', Validators.required],
-    yellowPlayerName: ['', Validators.required]
+    redPlayerName: ['jerome', Validators.required],
+    yellowPlayerName: ['jessica', Validators.required]
   });
 
   constructor(

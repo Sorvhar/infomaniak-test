@@ -1,17 +1,17 @@
-<h1 mat-dialog-title>New game</h1>
+<h1 mat-dialog-title>Nouvelle partie</h1>
 <form [formGroup]="gameSettingsForm"
       (ngSubmit)="onSubmit()">
   <mat-dialog-content>
     <mat-form-field>
       <input matInput
-             placeholder="Red player's name"
+             placeholder="Nom du joueur Rouge"
              formControlName="redPlayerName"
              maxlength="10"
              required>
     </mat-form-field>
     <mat-form-field>
       <input matInput
-             placeholder="Yellow player's name"
+             placeholder="Nom du joueur Jaune"
              formControlName="yellowPlayerName"
              maxlength="10"
              required>
@@ -21,6 +21,6 @@
     <button mat-raised-button
             color="primary"
             type="submit"
-            [disabled]="!gameSettingsForm.valid">Play !</button>
+            [disabled]="!gameSettingsForm.valid">Jouer !</button>
   </mat-dialog-actions>
 </form>
