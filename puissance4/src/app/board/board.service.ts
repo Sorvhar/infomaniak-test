@@ -3,7 +3,7 @@ import { Store } from '@ngxs/store';
 import { COLUMNS, REGEX_WIN_CONDITION, ROWS } from '../shared/constants';
 import { AddToken, InitializeBoard, SetWinningCells } from '../store/board/board.actions';
 import { BoardModel, BoardState, CellModel } from '../store/board/board.state';
-import { StopTheGame, SwitchPlayer } from '../store/game/game.actions';
+import { EndRound, SwitchPlayer } from '../store/game/game.actions';
 import { GameModel, GameState } from '../store/game/game.state';
 
 @Injectable({
@@ -41,9 +41,9 @@ export class BoardService {
       || this.checkDescendingDiagonal(boardState.columns, colIndex, boardState.lastPlayedTokenRowIndex);
 
     if (winningCells && winningCells.length === 4) {
-      this.store.dispatch([new StopTheGame(false), new SetWinningCells(winningCells)]);
+      this.store.dispatch([new EndRound(false), new SetWinningCells(winningCells)]);
     } else if (this.isBoardFull(boardState)) {
-      this.store.dispatch(new StopTheGame(true));
+      this.store.dispatch(new EndRound(true));
     } else {
       this.store.dispatch(new SwitchPlayer());
     }

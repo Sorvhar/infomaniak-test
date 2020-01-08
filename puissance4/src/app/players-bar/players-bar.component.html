@@ -2,11 +2,13 @@
   <app-player-card [playerType]="'red'"
                    [playerName]="(gameSettings$ | async).redPlayerName"
                    [avatarId]="(gameSettings$ | async).redPlayerAvatarId"
+                   [playerWins]="(game$ | async).redPlayerWinCount"
                    [isActive]="isRedPlayerActive"></app-player-card>
 
   <app-player-card [playerType]="'yellow'"
                    [playerName]="(gameSettings$ | async).yellowPlayerName"
                    [avatarId]="(gameSettings$ | async).yellowPlayerAvatarId"
-                   [alignRight]="true"
-                   [isActive]="isYellowPlayerActive"></app-player-card>
+                   [playerWins]="(game$ | async).yellowPlayerWinCount"
+                   [isActive]="isYellowPlayerActive"
+                   [alignRight]="true"></app-player-card>
 </section>

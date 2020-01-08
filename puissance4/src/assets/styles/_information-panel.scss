@@ -5,28 +5,28 @@
   padding: 2vh 0;
 }
 
-.information-panel__button-new {
+.information-panel__button-new-game {
   display: none !important;
 }
 
-.information-panel__button-restart {
+.information-panel__button-new-round {
   display: none !important;
 }
 
-@media all and (min-width: 768px) {
-  .information-panel__button-new {
+@media all and (min-width: 640px) {
+  .information-panel__button-new-game {
     display: inherit !important;
   }
 
-  .information-panel__button-restart {
+  .information-panel__button-new-round {
     display: inherit !important;
   }
 
-  .information-panel__button-new--small {
+  .information-panel__button-new-game--small {
     display: none !important;
   }
 
-  .information-panel__button-restart--small {
+  .information-panel__button-new-round--small {
     display: none !important;
   }
 }

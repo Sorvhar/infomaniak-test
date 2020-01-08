@@ -1,27 +1,30 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
-import { RED_PLAYER, YELLOW_PLAYER } from 'src/app/shared/constants';
-import { Select } from '@ngxs/store';
-import { GameState } from 'src/app/store/game/game.state';
-import { Observable } from 'rxjs';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-player-card',
   templateUrl: './player-card.component.html',
   styleUrls: ['./player-card.component.scss']
 })
-export class PlayerCardComponent implements OnInit {
-  @Select(GameState.getActivePlayer) activePlayer$: Observable<string>;
-
+export class PlayerCardComponent implements OnInit, OnChanges {
   @Input() playerType: 'red' | 'yellow';
   @Input() playerName: string;
   @Input() alignRight = false;
   @Input() avatarId: number;
   @Input() isActive: boolean;
+  @Input() playerWins: number;
+
+  wins = [];
 
   constructor() { }
 
   ngOnInit() {
 
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.playerWins.currentValue !== changes.playerWins.previousValue) {
+      this.wins = Array(changes.playerWins.currentValue);
+    }
   }
 
   getCardClasses() {

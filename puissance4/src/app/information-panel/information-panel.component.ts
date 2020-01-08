@@ -45,7 +45,7 @@ export class InformationPanelComponent implements OnInit {
     this.gameSvc.newGame(false);
   }
 
-  restart() {
-    this.gameSvc.restart();
+  startRound() {
+    this.gameSvc.startRound();
   }
 }

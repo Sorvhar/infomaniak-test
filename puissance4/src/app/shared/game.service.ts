@@ -5,7 +5,7 @@ import { GameSettingsForm } from '../models/game-settings-form.model';
 import { NewGameDialogComponent } from '../new-game-dialog/new-game-dialog.component';
 import { ResetBoard } from '../store/board/board.actions';
 import { SetGameSettings } from '../store/game-settings/game-settings.actions';
-import { StartTheGame } from '../store/game/game.actions';
+import { StartNewGame, StartRound } from '../store/game/game.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,8 @@ export class GameService {
     private store: Store,
     public dialog: MatDialog) { }
 
-  restart() {
-    this.store.dispatch([
-      new StartTheGame(),
-      new ResetBoard()
-    ]);
+  startRound() {
+    this.store.dispatch([new StartRound(), new ResetBoard()]);
   }
 
   newGame(firstGame: boolean) {
@@ -36,7 +33,7 @@ export class GameService {
     dialogRef.afterClosed().subscribe((result: GameSettingsForm) => {
       if (result) {
         this.store.dispatch(new SetGameSettings(result)).subscribe(() => {
-          const actions = [new StartTheGame()];
+          const actions = [new StartNewGame(), new StartRound()];
           if (!firstGame) {
             actions.push(new ResetBoard());
           }

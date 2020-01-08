@@ -7,3 +7,14 @@
     {{ playerName }}
   </div>
 </div>
+<div class="player-wins-counter"
+     [ngClass]="{'player-wins-counter--right': alignRight}">
+  <ng-container *ngIf="wins.length <= 5; else compactCounter">
+    <mat-icon class="player-wins-counter__star"
+              *ngFor="let item of wins; let i = index">star</mat-icon>
+  </ng-container>
+  <ng-template #compactCounter>
+    {{ playerWins }} <mat-icon class="player-wins-counter__star">star</mat-icon>
+  </ng-template>
+
+</div>

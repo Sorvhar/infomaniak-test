@@ -2,11 +2,16 @@ export class SwitchPlayer {
   static readonly type = '[Game] SwitchPlayer';
 }
 
-export class StartTheGame {
-  static readonly type = '[Game] StartTheGame';
+export class StartNewGame {
+  static readonly type = '[Game] StartNewGame';
 }
 
-export class StopTheGame {
-  static readonly type = '[Game] StopTheGame';
+export class StartRound {
+  static readonly type = '[Game] StartRound';
+  constructor() { }
+}
+
+export class EndRound {
+  static readonly type = '[Game] EndRound';
   constructor(public draw: boolean) { }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
-import { GameSettingsState, GameSettingsModel } from '../store/game-settings/game-settings.state';
 import { Observable } from 'rxjs';
-import { GameState } from '../store/game/game.state';
 import { RED_PLAYER, YELLOW_PLAYER } from '../shared/constants';
+import { GameSettingsModel, GameSettingsState } from '../store/game-settings/game-settings.state';
+import { GameModel, GameState } from '../store/game/game.state';
 
 @Component({
   selector: 'app-players-bar',
@@ -12,7 +12,7 @@ import { RED_PLAYER, YELLOW_PLAYER } from '../shared/constants';
 })
 export class PlayersBarComponent implements OnInit {
   @Select(GameSettingsState) gameSettings$: Observable<GameSettingsModel>;
-  @Select(GameState.getActivePlayer) activePlayer$: Observable<string>;
+  @Select(GameState) game$: Observable<GameModel>;
 
   isRedPlayerActive: boolean;
   isYellowPlayerActive: boolean;
@@ -20,9 +20,9 @@ export class PlayersBarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.activePlayer$.subscribe(player => {
-      this.isRedPlayerActive = player === RED_PLAYER;
-      this.isYellowPlayerActive = player === YELLOW_PLAYER;
+    this.game$.subscribe(game => {
+      this.isRedPlayerActive = game.activePlayer === RED_PLAYER;
+      this.isYellowPlayerActive = game.activePlayer === YELLOW_PLAYER;
     });
   }
 

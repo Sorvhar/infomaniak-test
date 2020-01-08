@@ -1,14 +1,14 @@
 <section class="information-panel">
-  <button class="information-panel__button-new"
+  <button class="information-panel__button-new-game"
           mat-stroked-button
           color="primary"
           (click)="newGame()">NOUVELLE PARTIE</button>
   <button mat-icon-button
-          class="information-panel__button-new--small"
+          class="information-panel__button-new-game--small"
           color="primary"
           matTooltip="Nouvelle partie"
           (click)="newGame()">
-    <mat-icon>add_circle</mat-icon>
+    <mat-icon>fiber_new</mat-icon>
   </button>
 
   <div *ngIf="!activePlayerName">En attente de joueurs...</div>
@@ -16,19 +16,35 @@
     Tour de <span class="information-panel__active-player">{{ activePlayerName }}</span>
   </div>
   <div *ngIf="(game$ |async).gameStopped">
-    <span *ngIf="(game$ |async).draw">Match nul...</span>
-    <span *ngIf="!(game$ |async).draw">{{ activePlayerName }} a gagné !</span>
+    {{ (game$ |async).draw ? 'Match nul...' : activePlayerName + ' a gagné !' }}
   </div>
 
-  <button class="information-panel__button-restart"
-          mat-stroked-button
-          color="warn"
-          (click)="restart()">REJOUER</button>
-  <button mat-icon-button
-          class="information-panel__button-restart--small"
-          color="warn"
-          matTooltip="Rejouer"
-          (click)="restart()">
-    <mat-icon>replay</mat-icon>
-  </button>
+  <ng-container *ngIf="(game$ |async).gameStopped">
+    <button class="information-panel__button-new-round"
+            mat-stroked-button
+            color="primary"
+            (click)="startRound()">TOUR SUIVANT</button>
+    <button mat-icon-button
+            class="information-panel__button-new-round--small"
+            color="primary"
+            matTooltip="Tour suivant"
+            (click)="startRound()">
+      <mat-icon>forward</mat-icon>
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="!(game$ |async).gameStopped">
+    <button class="information-panel__button-new-round"
+            mat-stroked-button
+            color="warn"
+            (click)="startRound()">REJOUER LE TOUR</button>
+    <button mat-icon-button
+            class="information-panel__button-new-round--small"
+            color="warn"
+            matTooltip="Rejouer le tour"
+            (click)="startRound()">
+      <mat-icon>replay</mat-icon>
+    </button>
+  </ng-container>
+
 </section>
