@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext, StateToken, Store } from '@ngxs/store';
 import { RED_PLAYER, YELLOW_PLAYER } from 'src/app/shared/constants';
+import { GameSettingsModel, GameSettingsState } from '../game-settings/game-settings.state';
 import { EndRound, StartNewGame, StartRound, SwitchPlayer } from './game.actions';
 
 export interface GameModel {
@@ -9,6 +10,7 @@ export interface GameModel {
   draw: boolean;
   redPlayerWinCount: number;
   yellowPlayerWinCount: number;
+  gameOver: boolean;
 }
 
 const GAME_STATE_TOKEN = new StateToken<GameModel>('game');
@@ -20,7 +22,8 @@ const GAME_STATE_TOKEN = new StateToken<GameModel>('game');
     gameStopped: false,
     draw: false,
     redPlayerWinCount: 0,
-    yellowPlayerWinCount: 0
+    yellowPlayerWinCount: 0,
+    gameOver: false
   }
 })
 @Injectable() // Make it Ivy compatible. See https://www.ngxs.io/advanced/ivy-migration-guide
@@ -46,7 +49,8 @@ export class GameState {
     ctx.setState(state => ({
       ...state,
       redPlayerWinCount: 0,
-      yellowPlayerWinCount: 0
+      yellowPlayerWinCount: 0,
+      gameOver: false
     }));
   }
 
@@ -65,13 +69,19 @@ export class GameState {
 
   @Action(EndRound)
   endRound(ctx: StateContext<GameModel>, action: EndRound) {
+    const gameSettings = this.store.selectSnapshot<GameSettingsModel>(GameSettingsState);
+
     ctx.setState(state => {
+      const redPlayerWinCount = state.redPlayerWinCount + (state.activePlayer === RED_PLAYER && !action.draw ? 1 : 0);
+      const yellowPlayerWinCount = state.yellowPlayerWinCount + (state.activePlayer === YELLOW_PLAYER && !action.draw ? 1 : 0);
+
       return {
         ...state,
         gameStopped: true,
         draw: action.draw,
-        redPlayerWinCount: state.redPlayerWinCount + (state.activePlayer === RED_PLAYER && !action.draw ? 1 : 0),
-        yellowPlayerWinCount: state.yellowPlayerWinCount + (state.activePlayer === YELLOW_PLAYER && !action.draw ? 1 : 0)
+        redPlayerWinCount,
+        yellowPlayerWinCount,
+        gameOver: redPlayerWinCount === gameSettings.maxRounds || yellowPlayerWinCount === gameSettings.maxRounds
       };
     });
   }

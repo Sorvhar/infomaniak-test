@@ -8,6 +8,7 @@ export interface GameSettingsModel {
   yellowPlayerName: string;
   redPlayerAvatarId: number;
   yellowPlayerAvatarId: number;
+  maxRounds: number;
 }
 
 const GAME_SETTINGS_STATE_TOKEN = new StateToken<GameSettingsModel>('gameSettings');
@@ -18,7 +19,8 @@ const GAME_SETTINGS_STATE_TOKEN = new StateToken<GameSettingsModel>('gameSetting
     redPlayerName: '',
     yellowPlayerName: '',
     redPlayerAvatarId: 1,
-    yellowPlayerAvatarId: 1
+    yellowPlayerAvatarId: 1,
+    maxRounds: 3
   }
 })
 @Injectable() // Make it Ivy compatible. See https://www.ngxs.io/advanced/ivy-migration-guide
@@ -35,7 +37,8 @@ export class GameSettingsState {
       redPlayerName: this.titleCasePipe.transform(action.settings.redPlayerName),
       yellowPlayerName: this.titleCasePipe.transform(action.settings.yellowPlayerName),
       redPlayerAvatarId: action.settings.redPlayerAvatar,
-      yellowPlayerAvatarId: action.settings.yellowPlayerAvatar
+      yellowPlayerAvatarId: action.settings.yellowPlayerAvatar,
+      maxRounds: action.settings.maxRounds
     }));
   }
 }

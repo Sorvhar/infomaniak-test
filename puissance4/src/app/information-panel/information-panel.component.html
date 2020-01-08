@@ -12,22 +12,27 @@
   </button>
 
   <div *ngIf="!activePlayerName">En attente de joueurs...</div>
-  <div *ngIf="activePlayerName && !(game$ |async).gameStopped">
+  <div *ngIf="activePlayerName && !(game$ | async).gameStopped">
     Tour de <span class="information-panel__active-player">{{ activePlayerName }}</span>
   </div>
-  <div *ngIf="(game$ |async).gameStopped">
-    {{ (game$ |async).draw ? 'Match nul...' : activePlayerName + ' a gagné !' }}
+  <div *ngIf="(game$ | async).gameStopped && !(game$ | async).gameOver">
+    {{ (game$ | async).draw ? 'Match nul...' : activePlayerName + ' a gagné !' }}
+  </div>
+  <div *ngIf="(game$ | async).gameOver">
+    {{ activePlayerName + ' remporte la partie !' }}
   </div>
 
   <ng-container *ngIf="(game$ |async).gameStopped">
     <button class="information-panel__button-new-round"
             mat-stroked-button
             color="primary"
+            [disabled]="(game$ | async).gameOver"
             (click)="startRound()">TOUR SUIVANT</button>
     <button mat-icon-button
             class="information-panel__button-new-round--small"
             color="primary"
             matTooltip="Tour suivant"
+            [disabled]="(game$ | async).gameOver"
             (click)="startRound()">
       <mat-icon>forward</mat-icon>
     </button>

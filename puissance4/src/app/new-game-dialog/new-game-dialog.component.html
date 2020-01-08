@@ -5,34 +5,50 @@
 
   <mat-dialog-content>
     <div class="player-section">
+      <mat-form-field>
+        <input matInput
+               #redPlayerName
+               placeholder="Nom du joueur Rouge"
+               formControlName="redPlayerName"
+               maxlength="15"
+               required />
+        <mat-hint>{{ redPlayerName.value.length }} / 15</mat-hint>
+      </mat-form-field>
       <img class="player-section__avatar"
+           matTooltip="Avatar"
            [src]="getAvatarImagePath('redPlayerAvatar')"
            (click)="openAvatarSelectionDialog('redPlayerAvatar')" />
       <input type="hidden"
              formControlName="redPlayerAvatar" />
-      <mat-form-field>
-        <input matInput
-               placeholder="Nom du joueur Rouge"
-               formControlName="redPlayerName"
-               maxlength="10"
-               required />
-      </mat-form-field>
     </div>
 
     <div class="player-section">
+      <mat-form-field>
+        <input matInput
+               #yellowPlayerName
+               placeholder="Nom du joueur Jaune"
+               formControlName="yellowPlayerName"
+               maxlength="15"
+               required />
+        <mat-hint>{{ yellowPlayerName.value.length }} / 15</mat-hint>
+      </mat-form-field>
       <img class="player-section__avatar"
+           matTooltip="Avatar"
            [src]="getAvatarImagePath('yellowPlayerAvatar')"
            (click)="openAvatarSelectionDialog('yellowPlayerAvatar')" />
       <input type="hidden"
              formControlName="yellowPlayerAvatar" />
-      <mat-form-field>
-        <input matInput
-               placeholder="Nom du joueur Jaune"
-               formControlName="yellowPlayerName"
-               maxlength="10"
-               required />
-      </mat-form-field>
     </div>
+
+    <mat-form-field>
+      <input matInput
+             type="number"
+             min="1"
+             max="30"
+             placeholder="Nombre de tours"
+             formControlName="maxRounds"
+             required />
+    </mat-form-field>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">

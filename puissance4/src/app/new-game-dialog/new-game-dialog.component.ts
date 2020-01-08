@@ -14,7 +14,8 @@ export class NewGameDialogComponent implements OnInit {
     redPlayerAvatar: [1, Validators.required],
     redPlayerName: ['', Validators.required],
     yellowPlayerAvatar: [1, Validators.required],
-    yellowPlayerName: ['', Validators.required]
+    yellowPlayerName: ['', Validators.required],
+    maxRounds: [3, [Validators.required, Validators.min(1), Validators.max(30)]]
   });
 
   firstGame: boolean;
