@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../shared/game.service';
-import { BoardService } from '../board/board.service';
 import { Select, Store } from '@ngxs/store';
-import { GameState, GameModel } from '../store/game/game.state';
 import { Observable } from 'rxjs';
+import { BoardService } from '../board/board.service';
 import { RED_PLAYER, YELLOW_PLAYER } from '../shared/constants';
+import { GameService } from '../shared/game.service';
 import { GameSettingsModel, GameSettingsState } from '../store/game-settings/game-settings.state';
+import { GameModel, GameState } from '../store/game/game.state';
 
 @Component({
   selector: 'app-information-panel',
@@ -41,8 +41,11 @@ export class InformationPanelComponent implements OnInit {
     });
   }
 
+  newGame() {
+    this.gameSvc.newGame(false);
+  }
+
   restart() {
-    this.gameSvc.start();
-    this.boardSvc.initializeBoard();
+    this.gameSvc.restart();
   }
 }

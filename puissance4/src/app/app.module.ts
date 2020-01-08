@@ -28,6 +28,7 @@ import { PlayersBarComponent } from './players-bar/players-bar.component';
 import { BoardState } from './store/board/board.state';
 import { GameSettingsState } from './store/game-settings/game-settings.state';
 import { GameState } from './store/game/game.state';
+import { AvatarSelectionDialogComponent } from './new-game-dialog/avatar-selection-dialog/avatar-selection-dialog.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { GameState } from './store/game/game.state';
     AddTokenDirective,
     NewGameDialogComponent,
     PlayersBarComponent,
+    AvatarSelectionDialogComponent,
   ],
   entryComponents: [
     NewGameDialogComponent

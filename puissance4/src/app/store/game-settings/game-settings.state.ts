@@ -1,7 +1,7 @@
-import { State, StateToken, Action, StateContext, Store } from '@ngxs/store';
-import { Injectable } from '@angular/core';
-import { SetGameSettings } from './game-settings.actions';
 import { TitleCasePipe } from '@angular/common';
+import { Injectable } from '@angular/core';
+import { Action, State, StateContext, StateToken, Store } from '@ngxs/store';
+import { SetGameSettings } from './game-settings.actions';
 
 export interface GameSettingsModel {
   redPlayerName: string;
@@ -34,14 +34,8 @@ export class GameSettingsState {
       ...state,
       redPlayerName: this.titleCasePipe.transform(action.settings.redPlayerName),
       yellowPlayerName: this.titleCasePipe.transform(action.settings.yellowPlayerName),
-      redPlayerAvatarId: this.generateRandomAvatarId(),
-      yellowPlayerAvatarId: this.generateRandomAvatarId()
+      redPlayerAvatarId: action.settings.redPlayerAvatar,
+      yellowPlayerAvatarId: action.settings.yellowPlayerAvatar
     }));
-  }
-
-  private generateRandomAvatarId() {
-    const min = 1;
-    const max = 16;
-    return Math.floor(Math.random() * (+max - +min)) + +min;
   }
 }

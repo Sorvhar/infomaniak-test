@@ -1,0 +1,19 @@
+.player-section {
+  display: flex;
+  padding-bottom: 15px;
+}
+
+.player-section__avatar {
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.avatar-selection-content {
+  text-align: center;
+  max-width: 300px;
+}
+
+.avatar-selection-content__avatar-image {
+  cursor: pointer;
+  margin: 0 4px;
+}

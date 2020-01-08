@@ -5,6 +5,11 @@ export class InitializeBoard {
   constructor(public columns: number, public rows: number) { }
 }
 
+export class ResetBoard {
+  static readonly type = '[Board] Reset';
+  constructor() { }
+}
+
 export class AddToken {
   static readonly type = '[Board] AddToken';
   constructor(public colIndex: number) { }

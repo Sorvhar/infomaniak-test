@@ -2,5 +2,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2vh 1vw;
+  padding: 2vh 0;
+}
+
+.information-panel__button-new {
+  display: none !important;
+}
+
+.information-panel__button-restart {
+  display: none !important;
+}
+
+@media all and (min-width: 768px) {
+  .information-panel__button-new {
+    display: inherit !important;
+  }
+
+  .information-panel__button-restart {
+    display: inherit !important;
+  }
+
+  .information-panel__button-new--small {
+    display: none !important;
+  }
+
+  .information-panel__button-restart--small {
+    display: none !important;
+  }
 }

@@ -6,3 +6,5 @@ export const REGEX_WIN_CONDITION = new RegExp(`${RED_PLAYER}{4}|${YELLOW_PLAYER}
 
 export const THEME_STORAGE_KEY = 'theme';
 export const DARK_THEME_STORAGE_VALUE = 'dark-theme';
+
+export const AVATAR_LIST: number[] = [];

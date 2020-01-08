@@ -1,4 +1,16 @@
 <section class="information-panel">
+  <button class="information-panel__button-new"
+          mat-stroked-button
+          color="primary"
+          (click)="newGame()">NOUVELLE PARTIE</button>
+  <button mat-icon-button
+          class="information-panel__button-new--small"
+          color="primary"
+          matTooltip="Nouvelle partie"
+          (click)="newGame()">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+
   <div *ngIf="!activePlayerName">En attente de joueurs...</div>
   <div *ngIf="activePlayerName && !(game$ |async).gameStopped">
     Tour de <span class="information-panel__active-player">{{ activePlayerName }}</span>
@@ -7,7 +19,16 @@
     <span *ngIf="(game$ |async).draw">Match nul...</span>
     <span *ngIf="!(game$ |async).draw">{{ activePlayerName }} a gagné !</span>
   </div>
-  <button mat-stroked-button
+
+  <button class="information-panel__button-restart"
+          mat-stroked-button
           color="warn"
           (click)="restart()">REJOUER</button>
+  <button mat-icon-button
+          class="information-panel__button-restart--small"
+          color="warn"
+          matTooltip="Rejouer"
+          (click)="restart()">
+    <mat-icon>replay</mat-icon>
+  </button>
 </section>

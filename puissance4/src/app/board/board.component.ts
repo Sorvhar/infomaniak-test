@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { BoardState, CellModel } from 'src/app/store/board/board.state';
-import { BoardService } from './board.service';
 import { RED_PLAYER, YELLOW_PLAYER } from '../shared/constants';
+import { BoardService } from './board.service';
 
 @Component({
   selector: 'app-board',

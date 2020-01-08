@@ -1,26 +1,50 @@
 <h1 mat-dialog-title>Nouvelle partie</h1>
+
 <form [formGroup]="gameSettingsForm"
       (ngSubmit)="onSubmit()">
+
   <mat-dialog-content>
-    <mat-form-field>
-      <input matInput
-             placeholder="Nom du joueur Rouge"
-             formControlName="redPlayerName"
-             maxlength="10"
-             required>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput
-             placeholder="Nom du joueur Jaune"
-             formControlName="yellowPlayerName"
-             maxlength="10"
-             required>
-    </mat-form-field>
+    <div class="player-section">
+      <img class="player-section__avatar"
+           [src]="getAvatarImagePath('redPlayerAvatar')"
+           (click)="openAvatarSelectionDialog('redPlayerAvatar')" />
+      <input type="hidden"
+             formControlName="redPlayerAvatar" />
+      <mat-form-field>
+        <input matInput
+               placeholder="Nom du joueur Rouge"
+               formControlName="redPlayerName"
+               maxlength="10"
+               required />
+      </mat-form-field>
+    </div>
+
+    <div class="player-section">
+      <img class="player-section__avatar"
+           [src]="getAvatarImagePath('yellowPlayerAvatar')"
+           (click)="openAvatarSelectionDialog('yellowPlayerAvatar')" />
+      <input type="hidden"
+             formControlName="yellowPlayerAvatar" />
+      <mat-form-field>
+        <input matInput
+               placeholder="Nom du joueur Jaune"
+               formControlName="yellowPlayerName"
+               maxlength="10"
+               required />
+      </mat-form-field>
+    </div>
   </mat-dialog-content>
+
   <mat-dialog-actions align="end">
+    <button *ngIf="!firstGame"
+            mat-button
+            color="primary"
+            mat-dialog-close>ANNULER</button>
     <button mat-raised-button
             color="primary"
             type="submit"
-            [disabled]="!gameSettingsForm.valid">Jouer !</button>
+            [disabled]="!gameSettingsForm.valid">JOUER</button>
+
   </mat-dialog-actions>
+
 </form>

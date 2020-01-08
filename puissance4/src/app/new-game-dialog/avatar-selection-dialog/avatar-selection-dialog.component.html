@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Selectionnez un avatar</h1>
+
+<mat-dialog-content class="avatar-selection-content">
+  <img class="avatar-selection-content__avatar-image"
+       *ngFor="let id of avatarIds"
+       src="./assets/images/avatars/64_{{id}}.png"
+       (click)="selectAvatar(id)" />
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button
+          mat-dialog-close>Annuler</button>
+</mat-dialog-actions>

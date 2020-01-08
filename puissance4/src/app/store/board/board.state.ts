@@ -1,7 +1,7 @@
-import { State, StateToken, Action, StateContext, Selector, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { InitializeBoard, AddToken, SetWinningCells } from './board.actions';
-import { GameState, GameModel } from '../game/game.state';
+import { Action, Selector, State, StateContext, StateToken, Store } from '@ngxs/store';
+import { GameModel, GameState } from '../game/game.state';
+import { AddToken, InitializeBoard, ResetBoard, SetWinningCells } from './board.actions';
 
 export interface CellModel {
   column: number;
@@ -46,10 +46,27 @@ export class BoardState {
     ctx.setState(state => ({
       ...state,
       columns: Array(action.columns).fill([]).map((col, colIndex) => {
-        return Array(action.rows).fill({}).map((row, rowIndex) => {
+        return Array(action.rows).fill({}).map((cell, rowIndex) => {
           return {
             column: colIndex,
             row: rowIndex,
+            value: null,
+            isWinning: false
+          };
+        });
+      }),
+      tokenCount: 0
+    }));
+  }
+
+  @Action(ResetBoard)
+  resetBoard(ctx: StateContext<BoardModel>) {
+    ctx.setState(state => ({
+      ...state,
+      columns: state.columns.map(col => {
+        return col.map(cell => {
+          return {
+            ...cell,
             value: null,
             isWinning: false
           };

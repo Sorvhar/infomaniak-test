@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GameSettingsForm } from '../models/game-settings-form.model';
+import { AvatarSelectionDialogComponent } from './avatar-selection-dialog/avatar-selection-dialog.component';
 
 @Component({
   selector: 'app-new-game-dialog',
@@ -10,15 +11,42 @@ import { GameSettingsForm } from '../models/game-settings-form.model';
 })
 export class NewGameDialogComponent implements OnInit {
   gameSettingsForm = this.fb.group({
-    redPlayerName: ['jerome', Validators.required],
-    yellowPlayerName: ['jessica', Validators.required]
+    redPlayerAvatar: [1, Validators.required],
+    redPlayerName: ['', Validators.required],
+    yellowPlayerAvatar: [1, Validators.required],
+    yellowPlayerName: ['', Validators.required]
   });
+
+  firstGame: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<NewGameDialogComponent>,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+    this.firstGame = this.data.firstGame;
+  }
+
+  openAvatarSelectionDialog(formControlName: string) {
+    const dialogRef = this.dialog.open(AvatarSelectionDialogComponent, {
+      autoFocus: true,
+      hasBackdrop: true
+    });
+
+    dialogRef.afterClosed().subscribe((avatarId: number) => {
+      if (avatarId) {
+        this.gameSettingsForm.patchValue({
+          [formControlName]: avatarId
+        });
+      }
+    });
+  }
+
+  getAvatarImagePath(formControlName: string) {
+    const avatarId = this.gameSettingsForm.get(formControlName).value;
+    return `./assets/images/avatars/64_${avatarId}.png`;
   }
 
   onSubmit() {

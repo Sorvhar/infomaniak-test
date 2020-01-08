@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Store } from '@ngxs/store';
-import { GameSettingsForm } from './models/game-settings-form.model';
-import { NewGameDialogComponent } from './new-game-dialog/new-game-dialog.component';
+import { AVATAR_LIST } from './shared/constants';
+import { GameService } from './shared/game.service';
 import { ThemeService } from './shared/theme.service';
-import { SetGameSettings } from './store/game-settings/game-settings.actions';
-import { StartTheGame } from './store/game/game.actions';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +11,8 @@ import { StartTheGame } from './store/game/game.actions';
 export class AppComponent implements OnInit {
 
   constructor(
-    private store: Store,
-    public dialog: MatDialog,
-    private themeSvc: ThemeService) { }
+    private themeSvc: ThemeService,
+    private gameSvc: GameService) { }
 
   ngOnInit() {
     this.themeSvc.isDarkTheme.subscribe(isDarkTheme => {
@@ -28,22 +23,16 @@ export class AppComponent implements OnInit {
       }
     });
 
+    this.initAvatarList();
+
     this.themeSvc.loadUserTheme();
 
-    this.openNewGameDialog();
+    this.gameSvc.newGame(true);
   }
 
-  openNewGameDialog() {
-    const dialogRef = this.dialog.open(NewGameDialogComponent, {
-      autoFocus: true,
-      disableClose: true,
-      hasBackdrop: true
-    });
-
-    dialogRef.afterClosed().subscribe((result: GameSettingsForm) => {
-      this.store.dispatch(new SetGameSettings(result)).subscribe(() => {
-        this.store.dispatch(new StartTheGame());
-      });
-    });
+  initAvatarList() {
+    for (let i = 1; i <= 16; i++) {
+      AVATAR_LIST.push(i);
+    }
   }
 }
