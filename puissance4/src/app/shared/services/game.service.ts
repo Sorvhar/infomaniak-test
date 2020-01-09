@@ -60,8 +60,6 @@ export class GameService {
     const dialogRef = this.dialog.open(GameOverDialogComponent, {
       disableClose: true,
       hasBackdrop: true,
-      width: '90vw',
-      maxWidth: '90vw',
       data: {
         winnerName: game.activePlayer.name
       } as GameOverDialogParams
