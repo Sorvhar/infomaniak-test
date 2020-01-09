@@ -1,8 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { GameSettingsForm } from '../models/game-settings-form.model';
-import { AvatarSelectionDialogComponent } from './avatar-selection-dialog/avatar-selection-dialog.component';
+import { Store } from '@ngxs/store';
+import { GameSettingsForm } from '../../models/game-settings-form.model';
+import { GameSettingsModel, GameSettingsState } from '../../store/game-settings/game-settings.state';
+import { AvatarSelectionDialogComponent } from '../avatar-selection-dialog/avatar-selection-dialog.component';
+
+export interface NewGameDialogParams {
+  firstGame: boolean;
+  loadPreviousSettings: boolean;
+}
 
 @Component({
   selector: 'app-new-game-dialog',
@@ -18,16 +25,24 @@ export class NewGameDialogComponent implements OnInit {
     maxRounds: [3, [Validators.required, Validators.min(1), Validators.max(30)]]
   });
 
-  firstGame: boolean;
-
   constructor(
     public dialogRef: MatDialogRef<NewGameDialogComponent>,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    private store: Store,
+    @Inject(MAT_DIALOG_DATA) public params: NewGameDialogParams) { }
 
   ngOnInit() {
-    this.firstGame = this.data.firstGame;
+    if (this.params.loadPreviousSettings) {
+      const gameSettings = this.store.selectSnapshot<GameSettingsModel>(GameSettingsState);
+      this.gameSettingsForm.patchValue({
+        redPlayerAvatar: gameSettings.redPlayerAvatarId,
+        redPlayerName: gameSettings.redPlayerName,
+        yellowPlayerAvatar: gameSettings.yellowPlayerAvatarId,
+        yellowPlayerName: gameSettings.yellowPlayerName,
+        maxRounds: gameSettings.maxRounds
+      });
+    }
   }
 
   openAvatarSelectionDialog(formControlName: string) {

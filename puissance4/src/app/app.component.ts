@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AVATAR_LIST } from './shared/constants';
-import { GameService } from './shared/game.service';
-import { ThemeService } from './shared/theme.service';
+import { GameService } from './shared/services/game.service';
+import { ThemeService } from './shared/services/theme.service';
 
 @Component({
   selector: 'app-root',

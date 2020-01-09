@@ -95,7 +95,7 @@ export class BoardState {
               if (rowIndex === lastEmptyCell.row) {
                 return {
                   ...cell,
-                  value: game.activePlayer,
+                  value: game.activePlayer.color,
                   isLastPlayed: true
                 };
               }

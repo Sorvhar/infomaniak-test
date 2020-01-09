@@ -2,10 +2,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { RED_PLAYER, YELLOW_PLAYER } from '../shared/constants';
-import { GameService } from '../shared/game.service';
-import { GameSettingsModel, GameSettingsState } from '../store/game-settings/game-settings.state';
-import { GameModel, GameState } from '../store/game/game.state';
+import { GameService } from '../shared/services/game.service';
+import { GameModel, GameState } from '../shared/store/game/game.state';
 
 @Component({
   selector: 'app-information-panel',
@@ -29,33 +27,16 @@ import { GameModel, GameState } from '../store/game/game.state';
 export class InformationPanelComponent implements OnInit {
   @Select(GameState) game$: Observable<GameModel>;
 
-  activePlayerName: string;
-  isDraw: boolean;
-
   constructor(
     private gameSvc: GameService,
     private store: Store) { }
 
   ngOnInit() {
-    this.game$.subscribe(game => {
-      const gameSettings = this.store.selectSnapshot<GameSettingsModel>(GameSettingsState);
-      switch (game.activePlayer) {
-        case RED_PLAYER:
-          this.activePlayerName = gameSettings.redPlayerName;
-          break;
 
-        case YELLOW_PLAYER:
-          this.activePlayerName = gameSettings.yellowPlayerName;
-          break;
-
-        default:
-          break;
-      }
-    });
   }
 
   newGame() {
-    this.gameSvc.newGame(false);
+    this.gameSvc.newGame(false, true);
   }
 
   startRound() {

@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Fin de la partie</h1>
+
+<mat-dialog-content class="game-over-content">
+  <div class="game-over-content__winner ">
+    {{ params.winnerName }} remporte la partie !
+  </div>
+
+  <div class="game-over-content__results">
+    <app-player-card [playerType]="'red'"
+                     [playerName]="(gameSettings$ | async).redPlayerName"
+                     [avatarId]="(gameSettings$ | async).redPlayerAvatarId"
+                     [isActive]="true"
+                     [verticalOrientation]="true"
+                     [hideWinsCounter]="true"></app-player-card>
+
+    <div>
+      {{ (game$ | async).redPlayerWinCount }} - {{ (game$ | async).yellowPlayerWinCount }}
+    </div>
+
+    <app-player-card [playerType]="'yellow'"
+                     [playerName]="(gameSettings$ | async).yellowPlayerName"
+                     [avatarId]="(gameSettings$ | async).yellowPlayerAvatarId"
+                     [isActive]="true"
+                     [verticalOrientation]="true"
+                     [hideWinsCounter]="true"></app-player-card>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button
+          color="primary"
+          mat-dialog-close>FERMER</button>
+  <button mat-raised-button
+          color="primary"
+          [mat-dialog-close]="true">NOUVELLE PARTIE</button>
+</mat-dialog-actions>

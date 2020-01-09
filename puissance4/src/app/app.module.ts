@@ -22,14 +22,14 @@ import { AddTokenDirective } from './board/add-token.directive';
 import { BoardComponent } from './board/board.component';
 import { HeaderComponent } from './header/header.component';
 import { InformationPanelComponent } from './information-panel/information-panel.component';
-import { NewGameDialogComponent } from './new-game-dialog/new-game-dialog.component';
-import { PlayerCardComponent } from './players-bar/player-card/player-card.component';
 import { PlayersBarComponent } from './players-bar/players-bar.component';
-import { BoardState } from './store/board/board.state';
-import { GameSettingsState } from './store/game-settings/game-settings.state';
-import { GameState } from './store/game/game.state';
-import { AvatarSelectionDialogComponent } from './new-game-dialog/avatar-selection-dialog/avatar-selection-dialog.component';
-
+import { AvatarSelectionDialogComponent } from './shared/components/avatar-selection-dialog/avatar-selection-dialog.component';
+import { GameOverDialogComponent } from './shared/components/game-over-dialog/game-over-dialog.component';
+import { NewGameDialogComponent } from './shared/components/new-game-dialog/new-game-dialog.component';
+import { PlayerCardComponent } from './shared/components/player-card/player-card.component';
+import { BoardState } from './shared/store/board/board.state';
+import { GameSettingsState } from './shared/store/game-settings/game-settings.state';
+import { GameState } from './shared/store/game/game.state';
 
 @NgModule({
   declarations: [
@@ -42,9 +42,11 @@ import { AvatarSelectionDialogComponent } from './new-game-dialog/avatar-selecti
     NewGameDialogComponent,
     PlayersBarComponent,
     AvatarSelectionDialogComponent,
+    GameOverDialogComponent,
   ],
   entryComponents: [
-    NewGameDialogComponent
+    NewGameDialogComponent,
+    AvatarSelectionDialogComponent
   ],
   imports: [
     BrowserModule,

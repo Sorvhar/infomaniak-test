@@ -8,21 +8,22 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 export class PlayerCardComponent implements OnInit, OnChanges {
   @Input() playerType: 'red' | 'yellow';
   @Input() playerName: string;
-  @Input() alignRight = false;
   @Input() avatarId: number;
   @Input() isActive: boolean;
   @Input() playerWins: number;
+  @Input() alignRight = false;
+  @Input() verticalOrientation = false;
+  @Input() hideWinsCounter = false;
 
   wins = [];
 
   constructor() { }
 
   ngOnInit() {
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.playerWins.currentValue !== changes.playerWins.previousValue) {
+    if (changes.playerWins && (changes.playerWins.currentValue !== changes.playerWins.previousValue)) {
       this.wins = Array(changes.playerWins.currentValue);
     }
   }
@@ -30,7 +31,8 @@ export class PlayerCardComponent implements OnInit, OnChanges {
   getCardClasses() {
     return {
       'player__card--right': this.alignRight,
-      'player__card--inactive': !this.isActive
+      'player__card--inactive': !this.isActive,
+      'player__card--vertical': this.verticalOrientation
     };
   }
 

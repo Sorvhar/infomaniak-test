@@ -11,21 +11,21 @@
     <mat-icon>fiber_new</mat-icon>
   </button>
 
-  <div *ngIf="!activePlayerName"
+  <div *ngIf="!(game$ | async).activePlayer"
        @informationInAnimation>
     En attente de joueurs...
   </div>
-  <div *ngIf="activePlayerName && !(game$ | async).gameStopped"
+  <div *ngIf="(game$ | async).activePlayer && !(game$ | async).gameStopped"
        @informationInAnimation>
-    Tour de {{ activePlayerName }}
+    Tour de {{ (game$ | async).activePlayer.name }}
   </div>
   <div *ngIf="(game$ | async).gameStopped && !(game$ | async).gameOver"
        @informationInAnimation>
-    {{ (game$ | async).draw ? 'Match nul...' : activePlayerName + ' a gagné !' }}
+    {{ (game$ | async).draw ? 'Match nul...' : (game$ | async).activePlayer.name + ' a gagné !' }}
   </div>
   <div *ngIf="(game$ | async).gameOver"
        @informationInAnimation>
-    {{ activePlayerName + ' remporte la partie !' }}
+    {{ (game$ | async).activePlayer.name  + ' remporte la partie !' }}
   </div>
 
   <ng-container *ngIf="(game$ |async).gameStopped">

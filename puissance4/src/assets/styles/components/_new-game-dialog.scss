@@ -1,0 +1,12 @@
+.player-section {
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.player-section__avatar {
+  width: 48px;
+  height: auto;
+  cursor: pointer;
+  margin-right: 15px;
+}

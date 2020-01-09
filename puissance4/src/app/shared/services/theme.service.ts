@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { DARK_THEME_STORAGE_VALUE, THEME_STORAGE_KEY } from './constants';
+import { DARK_THEME_STORAGE_VALUE, THEME_STORAGE_KEY } from '../constants';
 
 @Injectable({
   providedIn: 'root'

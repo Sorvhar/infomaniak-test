@@ -2,8 +2,11 @@
 @import 'base';
 @import 'layout';
 @import 'components';
-@import 'header';
-@import 'players-bar';
-@import 'information-panel';
-@import 'board';
-@import 'new-game-dialog';
+@import 'components/header';
+@import 'components/player-card';
+@import 'components/players-bar';
+@import 'components/information-panel';
+@import 'components/board';
+@import 'components/new-game-dialog';
+@import 'components/avatar-selection-dialog';
+@import 'components/game-over-dialog';

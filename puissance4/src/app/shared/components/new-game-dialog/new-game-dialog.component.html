@@ -10,9 +10,9 @@
                #redPlayerName
                placeholder="Nom du joueur Rouge"
                formControlName="redPlayerName"
-               maxlength="15"
+               maxlength="10"
                required />
-        <mat-hint>{{ redPlayerName.value.length }} / 15</mat-hint>
+        <mat-hint>{{ redPlayerName.value.length }} / 10</mat-hint>
       </mat-form-field>
       <img class="player-section__avatar"
            matTooltip="Avatar"
@@ -28,9 +28,9 @@
                #yellowPlayerName
                placeholder="Nom du joueur Jaune"
                formControlName="yellowPlayerName"
-               maxlength="15"
+               maxlength="10"
                required />
-        <mat-hint>{{ yellowPlayerName.value.length }} / 15</mat-hint>
+        <mat-hint>{{ yellowPlayerName.value.length }} / 10</mat-hint>
       </mat-form-field>
       <img class="player-section__avatar"
            matTooltip="Avatar"
@@ -48,11 +48,12 @@
              placeholder="Nombre de tours"
              formControlName="maxRounds"
              required />
+      <mat-hint>1 - 30</mat-hint>
     </mat-form-field>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
-    <button *ngIf="!firstGame"
+    <button *ngIf="!params.firstGame"
             mat-button
             color="primary"
             mat-dialog-close>ANNULER</button>
@@ -60,7 +61,6 @@
             color="primary"
             type="submit"
             [disabled]="!gameSettingsForm.valid">JOUER</button>
-
   </mat-dialog-actions>
 
 </form>

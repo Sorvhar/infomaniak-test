@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { COLUMNS, REGEX_WIN_CONDITION, ROWS } from '../shared/constants';
-import { AddToken, InitializeBoard, SetWinningCells } from '../store/board/board.actions';
-import { BoardModel, BoardState, CellModel } from '../store/board/board.state';
-import { EndRound, SwitchPlayer } from '../store/game/game.actions';
-import { GameModel, GameState } from '../store/game/game.state';
+import { AddToken, InitializeBoard, SetWinningCells } from '../shared/store/board/board.actions';
+import { BoardModel, BoardState, CellModel } from '../shared/store/board/board.state';
+import { EndRound, SwitchPlayer } from '../shared/store/game/game.actions';
+import { GameModel, GameState } from '../shared/store/game/game.state';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardService {
 
-  constructor(private store: Store) { }
+  constructor(
+    private store: Store) { }
 
   initializeBoard() {
     this.store.dispatch(new InitializeBoard(COLUMNS, ROWS));
@@ -98,7 +100,7 @@ export class BoardService {
     const game = this.store.selectSnapshot<GameModel>(GameState);
 
     if (arrCells.map(c => c.value || '_').join('').match(REGEX_WIN_CONDITION) !== null) {
-      return arrCells.filter(c => c.value === game.activePlayer);
+      return arrCells.filter(c => c.value === game.activePlayer.color);
     }
   }
 
