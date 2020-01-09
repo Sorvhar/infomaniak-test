@@ -40,7 +40,7 @@ export class BoardService {
       || this.checkAscendingDiagonal(boardState.columns, colIndex, boardState.lastPlayedTokenRowIndex)
       || this.checkDescendingDiagonal(boardState.columns, colIndex, boardState.lastPlayedTokenRowIndex);
 
-    if (winningCells && winningCells.length === 4) {
+    if (winningCells && winningCells.length >= 4) {
       this.store.dispatch([new EndRound(false), new SetWinningCells(winningCells)]);
     } else if (this.isBoardFull(boardState)) {
       this.store.dispatch(new EndRound(true));
@@ -97,7 +97,7 @@ export class BoardService {
   private getWinningCells(arrCells: CellModel[]): CellModel[] {
     const game = this.store.selectSnapshot<GameModel>(GameState);
 
-    if (arrCells.map(c => c.value).join('').match(REGEX_WIN_CONDITION) !== null) {
+    if (arrCells.map(c => c.value || '_').join('').match(REGEX_WIN_CONDITION) !== null) {
       return arrCells.filter(c => c.value === game.activePlayer);
     }
   }
