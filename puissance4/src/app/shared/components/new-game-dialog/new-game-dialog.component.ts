@@ -35,6 +35,7 @@ export class NewGameDialogComponent implements OnInit {
   ngOnInit() {
     if (this.params.loadPreviousSettings) {
       const gameSettings = this.store.selectSnapshot<GameSettingsModel>(GameSettingsState);
+
       this.gameSettingsForm.patchValue({
         redPlayerAvatar: gameSettings.redPlayerAvatarId,
         redPlayerName: gameSettings.redPlayerName,

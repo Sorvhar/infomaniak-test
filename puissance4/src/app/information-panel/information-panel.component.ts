@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GameService } from '../shared/services/game.service';
 import { GameModel, GameState } from '../shared/store/game/game.state';
@@ -28,8 +28,7 @@ export class InformationPanelComponent implements OnInit {
   @Select(GameState) game$: Observable<GameModel>;
 
   constructor(
-    private gameSvc: GameService,
-    private store: Store) { }
+    private gameSvc: GameService) { }
 
   ngOnInit() {
 

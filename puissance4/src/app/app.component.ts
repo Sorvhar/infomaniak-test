@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     this.gameSvc.newGame(true);
   }
 
-  initAvatarList() {
+  private initAvatarList() {
     for (let i = 1; i <= 16; i++) {
       AVATAR_LIST.push(i);
     }

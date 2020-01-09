@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GameSettingsModel, GameSettingsState } from '../../store/game-settings/game-settings.state';
@@ -19,7 +19,6 @@ export class GameOverDialogComponent implements OnInit {
   @Select(GameSettingsState) gameSettings$: Observable<GameSettingsModel>;
 
   constructor(
-    public dialogRef: MatDialogRef<GameOverDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public params: GameOverDialogParams) { }
 
   ngOnInit() {
