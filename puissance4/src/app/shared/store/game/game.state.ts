@@ -103,7 +103,7 @@ export class GameState {
         draw: action.draw,
         redPlayerWinCount,
         yellowPlayerWinCount,
-        gameOver: redPlayerWinCount === gameSettings.maxRounds || yellowPlayerWinCount === gameSettings.maxRounds
+        gameOver: redPlayerWinCount === gameSettings.numberOfWins || yellowPlayerWinCount === gameSettings.numberOfWins
       };
     });
   }

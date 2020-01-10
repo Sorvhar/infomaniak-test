@@ -22,7 +22,7 @@ export class NewGameDialogComponent implements OnInit {
     redPlayerName: ['', Validators.required],
     yellowPlayerAvatar: [1, Validators.required],
     yellowPlayerName: ['', Validators.required],
-    maxRounds: [3, [Validators.required, Validators.min(1), Validators.max(30)]]
+    numberOfWins: [3, [Validators.required, Validators.min(1), Validators.max(30)]]
   });
 
   constructor(
@@ -41,7 +41,7 @@ export class NewGameDialogComponent implements OnInit {
         redPlayerName: gameSettings.redPlayerName,
         yellowPlayerAvatar: gameSettings.yellowPlayerAvatarId,
         yellowPlayerName: gameSettings.yellowPlayerName,
-        maxRounds: gameSettings.maxRounds
+        numberOfWins: gameSettings.numberOfWins
       });
     }
   }
