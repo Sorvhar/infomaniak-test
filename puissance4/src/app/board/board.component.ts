@@ -13,10 +13,13 @@ import { BoardService } from './board.service';
 export class BoardComponent implements OnInit {
   @Select(BoardState.getColumns) columns$: Observable<CellModel[][]>;
 
+  isBrowserEdge = false;
+
   constructor(private boardSvc: BoardService) { }
 
   ngOnInit() {
     this.boardSvc.initializeBoard();
+    this.isBrowserEdge = window.navigator.userAgent.toLowerCase().includes('edge');
   }
 
   addToken(colIndex: number) {

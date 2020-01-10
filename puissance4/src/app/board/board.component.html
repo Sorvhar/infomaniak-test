@@ -31,7 +31,8 @@
                 r="36"
                 class="board__token"
                 [ngClass]="getTokenClass(cell)">
-          <animate appAddToken
+          <animate *ngIf="!isBrowserEdge"
+                   appAddToken
                    attributeType="XML"
                    attributeName="cy"
                    from="0"
